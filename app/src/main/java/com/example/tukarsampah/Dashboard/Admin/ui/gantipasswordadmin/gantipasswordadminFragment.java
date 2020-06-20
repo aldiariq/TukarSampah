@@ -13,8 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.tukarsampah.Api.Service;
-import com.example.tukarsampah.Dashboard.Admin.Api.Operasiadmin;
-import com.example.tukarsampah.Dashboard.Admin.Model.Responseoperasi;
+import com.example.tukarsampah.Dashboard.Api.Operasiadmin;
+import com.example.tukarsampah.Dashboard.Model.Responseoperasi;
 import com.example.tukarsampah.R;
 
 import retrofit2.Call;

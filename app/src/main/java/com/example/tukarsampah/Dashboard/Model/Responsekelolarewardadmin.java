@@ -1,4 +1,4 @@
-package com.example.tukarsampah.Dashboard.Admin.Model;
+package com.example.tukarsampah.Dashboard.Model;
 
 import java.util.List;
 

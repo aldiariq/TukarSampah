@@ -16,11 +16,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tukarsampah.Api.Service;
-import com.example.tukarsampah.Dashboard.Admin.Adapter.Adapterkelolarewardadmin;
-import com.example.tukarsampah.Dashboard.Admin.Api.Operasiadmin;
-import com.example.tukarsampah.Dashboard.Admin.Model.Kelolarewardadmin;
-import com.example.tukarsampah.Dashboard.Admin.Model.Responsekelolarewardadmin;
-import com.example.tukarsampah.Dashboard.Admin.Model.Responseoperasi;
+import com.example.tukarsampah.Dashboard.Adapter.Adapterkelolarewardadmin;
+import com.example.tukarsampah.Dashboard.Api.Operasiadmin;
+import com.example.tukarsampah.Dashboard.Model.Kelolarewardadmin;
+import com.example.tukarsampah.Dashboard.Model.Responsekelolarewardadmin;
+import com.example.tukarsampah.Dashboard.Model.Responseoperasi;
 import com.example.tukarsampah.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 

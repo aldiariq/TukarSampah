@@ -12,14 +12,20 @@
         tools:layout="@layout/dashboard_pengguna_fragment" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.tukarsampah.Dashboard.Admin.ui.kelolapenggunaadmin.kelolapenggunaadminFragment"
-        android:label="@string/menu_gallery"
+        android:id="@+id/nav_transaksi_pengguna"
+        android:name="com.example.tukarsampah.Dashboard.Pengguna.ui.transaksipengguna.transaksipenggunaFragment"
+        android:label="@string/menu_transaksi_pengguna"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.tukarsampah.Dashboard.Admin.ui.kelolakuriradmin.kelolakuriradminFragment"
-        android:label="@string/menu_slideshow"
+        android:id="@+id/nav_tukarpoint_pengguna"
+        android:name="com.example.tukarsampah.Dashboard.Pengguna.ui.tukarpointpengguna.tukarpointpenggunaFragment"
+        android:label="@string/menu_tukarpoint_pengguna"
         tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_gantipassword_pengguna"
+        android:name="com.example.tukarsampah.Dashboard.Pengguna.ui.gantipasswordpengguna.gantipasswordpenggunaFragment"
+        android:label="@string/menu_gantipassword_pengguna"
+        tools:layout="@layout/gantipassword_fragment" />
 </navigation>

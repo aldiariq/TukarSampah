@@ -9,16 +9,20 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_transaksi_pengguna"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
+            android:title="@string/menu_transaksi_pengguna" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_tukarpoint_pengguna"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:title="@string/menu_tukarpoint_pengguna" />
         <item
-            android:id="@+id/nav_slideshow2"
+            android:id="@+id/nav_gantipassword_pengguna"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:title="@string/menu_gantipassword_pengguna" />
+        <item
+            android:id="@+id/nav_logout_pengguna"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/menu_logout_admin" />
     </group>
 </menu>

@@ -1,4 +1,4 @@
-package com.example.tukarsampah.Dashboard.Admin.Model;
+package com.example.tukarsampah.Dashboard.Model;
 
 public class Kelolarewardadmin {
     private String id_reward, hadiah_reward, point_reward;

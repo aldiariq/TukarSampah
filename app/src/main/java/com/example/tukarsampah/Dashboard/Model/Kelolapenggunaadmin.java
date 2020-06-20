@@ -1,4 +1,4 @@
-package com.example.tukarsampah.Dashboard.Admin.Model;
+package com.example.tukarsampah.Dashboard.Model;
 
 public class Kelolapenggunaadmin {
     private String id_pengguna, username_pengguna;

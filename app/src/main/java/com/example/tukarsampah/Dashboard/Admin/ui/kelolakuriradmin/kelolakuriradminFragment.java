@@ -12,10 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tukarsampah.Api.Service;
-import com.example.tukarsampah.Dashboard.Admin.Adapter.Adapterkelolakuriradmin;
-import com.example.tukarsampah.Dashboard.Admin.Api.Operasiadmin;
-import com.example.tukarsampah.Dashboard.Admin.Model.Kelolakuriradmin;
-import com.example.tukarsampah.Dashboard.Admin.Model.Responsekelolakuriradmin;
+import com.example.tukarsampah.Dashboard.Adapter.Adapterkelolakuriradmin;
+import com.example.tukarsampah.Dashboard.Api.Operasiadmin;
+import com.example.tukarsampah.Dashboard.Model.Kelolakuriradmin;
+import com.example.tukarsampah.Dashboard.Model.Responsekelolakuriradmin;
 import com.example.tukarsampah.R;
 
 import java.util.ArrayList;

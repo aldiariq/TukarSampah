@@ -1,9 +1,9 @@
-package com.example.tukarsampah.Dashboard.Admin.Api;
+package com.example.tukarsampah.Dashboard.Api;
 
-import com.example.tukarsampah.Dashboard.Admin.Model.Responsekelolakuriradmin;
-import com.example.tukarsampah.Dashboard.Admin.Model.Responsekelolapenggunaadmin;
-import com.example.tukarsampah.Dashboard.Admin.Model.Responsekelolarewardadmin;
-import com.example.tukarsampah.Dashboard.Admin.Model.Responseoperasi;
+import com.example.tukarsampah.Dashboard.Model.Responsekelolakuriradmin;
+import com.example.tukarsampah.Dashboard.Model.Responsekelolapenggunaadmin;
+import com.example.tukarsampah.Dashboard.Model.Responsekelolarewardadmin;
+import com.example.tukarsampah.Dashboard.Model.Responseoperasi;
 
 import retrofit2.Call;
 import retrofit2.http.Field;

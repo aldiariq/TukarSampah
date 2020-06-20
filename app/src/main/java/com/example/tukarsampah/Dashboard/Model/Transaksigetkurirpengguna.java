@@ -1,6 +1,6 @@
-package com.example.tukarsampah.Dashboard.Admin.Model;
+package com.example.tukarsampah.Dashboard.Model;
 
-public class Kelolakuriradmin {
+public class Transaksigetkurirpengguna {
     private String id_kurir, username_kurir;
 
     public String getId_kurir() {

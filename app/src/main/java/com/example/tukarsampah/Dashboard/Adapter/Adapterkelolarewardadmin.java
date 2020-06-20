@@ -1,4 +1,4 @@
-package com.example.tukarsampah.Dashboard.Admin.Adapter;
+package com.example.tukarsampah.Dashboard.Adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -14,9 +14,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tukarsampah.Api.Service;
-import com.example.tukarsampah.Dashboard.Admin.Api.Operasiadmin;
-import com.example.tukarsampah.Dashboard.Admin.Model.Kelolarewardadmin;
-import com.example.tukarsampah.Dashboard.Admin.Model.Responseoperasi;
+import com.example.tukarsampah.Dashboard.Api.Operasiadmin;
+import com.example.tukarsampah.Dashboard.Model.Kelolarewardadmin;
+import com.example.tukarsampah.Dashboard.Model.Responseoperasi;
 import com.example.tukarsampah.MasukActivity;
 import com.example.tukarsampah.R;
 
