@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">TukarSampah</string>
+    <string-array name="stringtipeakunmasuk">
+        <item>PENGGUNA</item>
+        <item>KURIR</item>
+        <item>ADMIN</item>
+    </string-array>
+    <string-array name="stringtipeakundaftar">
+        <item>PENGGUNA</item>
+        <item>KURIR</item>
+    </string-array>
+    <string name="title_activity_dashboard_admin">DashboardAdminActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="title_activity_dashboard_kurir">DashboardKurirActivity</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="menu_kelolapengguna_admin">Kelola Pengguna</string>
+    <string name="menu_kelolakurir_admin">Kelola Kurir</string>
+    <string name="menu_kelolareward_admin">Kelola Reward</string>
+    <string name="menu_gantipassword_admin">Ganti Password</string>
+    <string name="menu_logout_admin">Log Out</string>
+</resources>

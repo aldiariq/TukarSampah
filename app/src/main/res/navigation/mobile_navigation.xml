@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.tukarsampah.Dashboard.Admin.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/dashboard_admin_fragment" />
+
+    <fragment
+        android:id="@+id/nav_kelolapengguna_admin"
+        android:name="com.example.tukarsampah.Dashboard.Admin.ui.kelolapenggunaadmin.kelolapenggunaadminFragment"
+        android:label="@string/menu_kelolapengguna_admin"
+        tools:layout="@layout/kelolapengguna_admin_fragment" />
+
+    <fragment
+        android:id="@+id/nav_kelolakurir_admin"
+        android:name="com.example.tukarsampah.Dashboard.Admin.ui.kelolakuriradmin.kelolakuriradminFragment"
+        android:label="@string/menu_kelolakurir_admin"
+        tools:layout="@layout/kelolakurir_admin_fragment" />
+
+    <fragment
+        android:id="@+id/nav_kelolareward_admin"
+        android:name="com.example.tukarsampah.Dashboard.Admin.ui.kelolarewardadmin.kelolarewardadminFragment"
+        android:label="@string/menu_kelolareward_admin"
+        tools:layout="@layout/kelolareward_admin_fragment" />
+
+    <fragment
+        android:id="@+id/nav_gantipasssword_admin"
+        android:name="com.example.tukarsampah.Dashboard.Admin.ui.gantipasswordadmin.gantipasswordadminFragment"
+        android:label="@string/menu_gantipassword_admin"
+        tools:layout="@layout/gantipassword_fragment" />
+</navigation>

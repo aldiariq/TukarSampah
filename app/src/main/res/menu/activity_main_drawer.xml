@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/nav_kelolapengguna_admin"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/menu_kelolapengguna_admin" />
+        <item
+            android:id="@+id/nav_kelolakurir_admin"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/menu_kelolakurir_admin" />
+        <item
+            android:id="@+id/nav_kelolareward_admin"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/menu_kelolareward_admin" />
+        <item
+            android:id="@+id/nav_gantipasssword_admin"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/menu_gantipassword_admin" />
+        <item
+            android:id="@+id/nav_logout_admin"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/menu_logout_admin" />
+    </group>
+</menu>
