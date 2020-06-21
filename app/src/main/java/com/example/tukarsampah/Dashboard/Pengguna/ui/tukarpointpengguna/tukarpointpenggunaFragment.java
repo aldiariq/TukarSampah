@@ -69,7 +69,6 @@ public class tukarpointpenggunaFragment extends Fragment {
                 List<Tukarpointgetpointpengguna> datapoint = response.body().getDatapoint();
                 if (datapoint.size() == 0){
                     Jumlahpoint.setText("Jumlah Point : 0");
-                    Ambilpoint.setEnabled(false);
                 }else {
                     Jumlahpoint.setText("Jumlah Point : " + datapoint.get(0).getJumlah_point());
                     Ambilpoint.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +85,12 @@ public class tukarpointpenggunaFragment extends Fragment {
                             responsetukarpoint.enqueue(new Callback<Responseoperasi>() {
                                 @Override
                                 public void onResponse(Call<Responseoperasi> call, Response<Responseoperasi> response) {
-
+                                    Toast.makeText(getContext(), response.body().getKETERANGAN(), Toast.LENGTH_SHORT).show();
+                                    tempidreward.clear();
+                                    temphadiahreward.clear();
+                                    temppointreward.clear();
+                                    getPointpengguna(sharedPreferences.getString("ID_AKUN", ""));
+                                    getRewardpengguna();
                                 }
 
                                 @Override
