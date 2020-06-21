@@ -74,7 +74,6 @@ public class tukarpointpenggunaFragment extends Fragment {
                     Ambilpoint.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
                             String IDPENGGUNA, JUMLAH_POINT, PERLU_POINT, ID_REWARD;
                             IDPENGGUNA = idpengguna;
                             JUMLAH_POINT = datapoint.get(0).getJumlah_point();
