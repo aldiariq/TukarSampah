@@ -32,4 +32,7 @@
     <string name="menu_transaksi_pengguna">Transaksi</string>
     <string name="menu_tukarpoint_pengguna">Tukar Point</string>
     <string name="menu_gantipassword_pengguna">Ganti Password</string>
+
+    <string name="menu_transaksi_kurir">Transaksi</string>
+    <string name="menu_gantipassword_kurir">Ganti Password</string>
 </resources>

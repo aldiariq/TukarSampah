@@ -15,13 +15,13 @@
         android:id="@+id/nav_transaksi_pengguna"
         android:name="com.example.tukarsampah.Dashboard.Pengguna.ui.transaksipengguna.transaksipenggunaFragment"
         android:label="@string/menu_transaksi_pengguna"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/transaksi_pengguna_fragment" />
 
     <fragment
         android:id="@+id/nav_tukarpoint_pengguna"
         android:name="com.example.tukarsampah.Dashboard.Pengguna.ui.tukarpointpengguna.tukarpointpenggunaFragment"
         android:label="@string/menu_tukarpoint_pengguna"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/tukarpoint_pengguna_fragment" />
 
     <fragment
         android:id="@+id/nav_gantipassword_pengguna"

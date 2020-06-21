@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.tukarsampah.Dashboard.Kurir.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/dashboard_pengguna_fragment" />
+
+    <fragment
+        android:id="@+id/nav_transaksi_kurir"
+        android:name="com.example.tukarsampah.Dashboard.Pengguna.ui.transaksipengguna.transaksipenggunaFragment"
+        android:label="@string/menu_transaksi_kurir"
+        tools:layout="@layout/transaksi_kurir_fragment" />
+
+    <fragment
+        android:id="@+id/nav_gantipassword_pengguna"
+        android:name="com.example.tukarsampah.Dashboard.Kurir.ui.gantipasswordkurir.gantipasswordkurirFragment"
+        android:label="@string/menu_gantipassword_kurir"
+        tools:layout="@layout/gantipassword_fragment" />
+</navigation>

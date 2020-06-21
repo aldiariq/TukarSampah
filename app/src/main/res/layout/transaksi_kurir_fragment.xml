@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Dashboard.Admin.ui.kelolapenggunaadmin.kelolapenggunaadminFragment">
+
+    <TextView
+        android:id="@+id/text_transaksi_pengguna"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/menu_transaksi_pengguna"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etBanyaksampahtransaksipengguna"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="Banyak Sampah (Kg)"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_transaksi_pengguna" />
+
+    <Spinner
+        android:id="@+id/spKurirtransaksipengguna"
+        android:layout_width="match_parent"
+        android:layout_height="40sp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etBanyaksampahtransaksipengguna" />
+
+    <Button
+        android:id="@+id/btnTransaksitransaksipengguna"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Mulai Transaksi"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spKurirtransaksipengguna" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_datatransaksi_pengguna"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnTransaksitransaksipengguna"
+        app:layout_constraintVertical_bias="0.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtIdtransaksi_transaksi_pengguna"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:ems="10"
+                android:hint="Id Transaksi"
+                android:inputType="text"
+                android:textSize="20sp"></TextView>
+
+            <TextView
+                android:id="@+id/txtJumlah_transaksi_pengguna"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:ems="10"
+                android:hint="Jumlah Transaksi"
+                android:inputType="text"
+                android:textSize="20sp"></TextView>
+
+            <TextView
+                android:id="@+id/txtTgl_transaksi_pengguna"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:ems="10"
+                android:hint="Tanggal Transaksi"
+                android:inputType="text"
+                android:textSize="20sp"></TextView>
+
+            <TextView
+                android:id="@+id/txtNamakurir_transaksi_pengguna"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:ems="10"
+                android:hint="Nama Kurir"
+                android:inputType="text"
+                android:textSize="20sp"></TextView>
+
+            <Button
+                android:id="@+id/btnBataltransaksitransaksipengguna"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Batalkan"></Button>
+
+            <Button
+                android:id="@+id/btnTeleponkurirtransaksipengguna"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Telepon Kurir"></Button>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
