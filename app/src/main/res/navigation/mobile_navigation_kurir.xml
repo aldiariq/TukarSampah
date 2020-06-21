@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/nav_transaksi_kurir"
-        android:name="com.example.tukarsampah.Dashboard.Pengguna.ui.transaksipengguna.transaksipenggunaFragment"
+        android:name="com.example.tukarsampah.Dashboard.Kurir.ui.transaksikurir.transaksikurirFragment"
         android:label="@string/menu_transaksi_kurir"
         tools:layout="@layout/transaksi_kurir_fragment" />
 
