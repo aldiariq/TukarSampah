@@ -16,7 +16,10 @@ import androidx.fragment.app.Fragment;
 
 import com.example.tukarsampah.Api.Service;
 import com.example.tukarsampah.Dashboard.Api.Operasipengguna;
+import com.example.tukarsampah.Dashboard.Model.Responseoperasi;
+import com.example.tukarsampah.Dashboard.Model.Responsetukarpointgetpointpengguna;
 import com.example.tukarsampah.Dashboard.Model.Responsetukarpointgetrewardpengguna;
+import com.example.tukarsampah.Dashboard.Model.Tukarpointgetpointpengguna;
 import com.example.tukarsampah.Dashboard.Model.Tukarpointgetrewardpengguna;
 import com.example.tukarsampah.R;
 
@@ -39,13 +42,14 @@ public class tukarpointpenggunaFragment extends Fragment {
 
     private List<String> tempidreward = new ArrayList<String>();
     private List<String> temphadiahreward = new ArrayList<String>();
+    private List<String> temppointreward = new ArrayList<String>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.tukarpoint_pengguna_fragment, container, false);
         sharedPreferences = getContext().getSharedPreferences("LOGIN", MODE_PRIVATE);
         initView(root);
-//        getPointpengguna(sharedPreferences.getString("ID_AKUN", ""));
+        getPointpengguna(sharedPreferences.getString("ID_AKUN", ""));
         getRewardpengguna();
         return root;
     }
@@ -57,7 +61,49 @@ public class tukarpointpenggunaFragment extends Fragment {
     }
 
     private void getPointpengguna(String idpengguna){
+        Operasipengguna operasipengguna = Service.Koneksi().create(Operasipengguna.class);
+        Call<Responsetukarpointgetpointpengguna> responsetukarpointgetpointpengguna = operasipengguna.getPointpengguna(idpengguna);
+        responsetukarpointgetpointpengguna.enqueue(new Callback<Responsetukarpointgetpointpengguna>() {
+            @Override
+            public void onResponse(Call<Responsetukarpointgetpointpengguna> call, Response<Responsetukarpointgetpointpengguna> response) {
+                List<Tukarpointgetpointpengguna> datapoint = response.body().getDatapoint();
+                if (datapoint.size() == 0){
+                    Jumlahpoint.setText("Jumlah Point : 0");
+                    Ambilpoint.setEnabled(false);
+                }else {
+                    Jumlahpoint.setText("Jumlah Point : " + datapoint.get(0).getJumlah_point());
+                    Ambilpoint.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
 
+                            String IDPENGGUNA, JUMLAH_POINT, PERLU_POINT, ID_REWARD;
+                            IDPENGGUNA = idpengguna;
+                            JUMLAH_POINT = datapoint.get(0).getJumlah_point();
+                            PERLU_POINT = temppointreward.get(Reward.getSelectedItemPosition());
+                            ID_REWARD = tempidreward.get(Reward.getSelectedItemPosition());
+                            Operasipengguna operasipengguna2 = Service.Koneksi().create(Operasipengguna.class);
+                            Call<Responseoperasi> responsetukarpoint = operasipengguna2.Tukarpoint(IDPENGGUNA, JUMLAH_POINT, PERLU_POINT, ID_REWARD);
+                            responsetukarpoint.enqueue(new Callback<Responseoperasi>() {
+                                @Override
+                                public void onResponse(Call<Responseoperasi> call, Response<Responseoperasi> response) {
+
+                                }
+
+                                @Override
+                                public void onFailure(Call<Responseoperasi> call, Throwable t) {
+                                    Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Responsetukarpointgetpointpengguna> call, Throwable t) {
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void getRewardpengguna(){
@@ -72,6 +118,8 @@ public class tukarpointpenggunaFragment extends Fragment {
                     tempidreward.add(idreward);
                     String hadiahreward = datareward.get(i).getHadiah_reward();
                     temphadiahreward.add(hadiahreward);
+                    String pointreward = datareward.get(i).getPoint_reward();
+                    temppointreward.add(pointreward);
                 }
 
                 ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>

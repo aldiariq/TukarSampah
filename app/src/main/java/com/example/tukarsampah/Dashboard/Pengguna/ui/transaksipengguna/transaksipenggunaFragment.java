@@ -42,6 +42,7 @@ public class transaksipenggunaFragment extends Fragment {
     private Spinner Kurir;
     private Button Transaksi;
     private List<String> tempidkurir = new ArrayList<String>();
+    private List<String> tempusernamekurir = new ArrayList<String>();
     private SharedPreferences sharedPreferences;
     private CardView Cardtransaksi;
     private TextView Idtransaksi, Jumlahtransaksi, Tgltransaksi, Namakurir;
@@ -97,7 +98,6 @@ public class transaksipenggunaFragment extends Fragment {
             @Override
             public void onResponse(Call<Responsetransaksigetkurirpengguna> call, Response<Responsetransaksigetkurirpengguna> response) {
                 List<Kelolakuriradmin> datakurir = response.body().getData();
-                List<String> tempusernamekurir = new ArrayList<String>();
 
                 for (int i = 0; i < datakurir.size(); i++){
                     String idkurir = datakurir.get(i).getId_kurir();
@@ -170,6 +170,8 @@ public class transaksipenggunaFragment extends Fragment {
                                 @Override
                                 public void onResponse(Call<Responseoperasi> call, Response<Responseoperasi> response) {
                                     kosongkanInputan();
+                                    tempidkurir.clear();
+                                    tempusernamekurir.clear();
                                     getTransaksiPengguna(sharedPreferences.getString("ID_AKUN", ""));
                                 }
 

@@ -55,4 +55,13 @@ public interface Operasipengguna {
     @GET("getreward")
     Call<Responsetukarpointgetrewardpengguna> getDatareward();
 
+    @FormUrlEncoded
+    @POST("tukarpoint")
+    Call<Responseoperasi> Tukarpoint(
+            @Field("id_pengguna") String idpengguna,
+            @Field("jumlah_point") String jumlahpoint,
+            @Field("perlu_point") String perlupoint,
+            @Field("id_reward") String idreward
+    );
+
 }
