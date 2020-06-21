@@ -25,6 +25,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 
 public class gantipasswordkurirFragment extends Fragment {
+
     private TextView Passlama, Passbaru, Passbaru2;
     private Button Btnsimpan;
     private SharedPreferences sharedPreferences;
