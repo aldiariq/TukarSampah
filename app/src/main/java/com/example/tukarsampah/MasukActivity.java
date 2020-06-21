@@ -1,8 +1,10 @@
 package com.example.tukarsampah;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.tukarsampah.Api.Operasi;
 import com.example.tukarsampah.Api.Service;
@@ -37,10 +41,13 @@ public class MasukActivity extends AppCompatActivity {
     private SharedPreferences.Editor sharedPreferencesEditor;
     private ProgressDialog dialog;
 
+    private static final int MY_PERMISSIONS_REQUEST_CALL = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_masuk);
+        getPermissions();
         initView();
 
         Login.setOnClickListener(new View.OnClickListener() {
@@ -165,5 +172,26 @@ public class MasukActivity extends AppCompatActivity {
         Username.setText("");
         Password.setText("");
         Tipeakun.setSelection(0);
+    }
+
+    public void getPermissions() {
+        if (ContextCompat.checkSelfPermission(MasukActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MasukActivity.this, new String[]{Manifest.permission.CALL_PHONE}, MY_PERMISSIONS_REQUEST_CALL);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_CALL: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                } else {
+                    Toast.makeText(MasukActivity.this, "Mohon Aktifkan Akses Panggilan", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+                return;
+            }
+        }
     }
 }

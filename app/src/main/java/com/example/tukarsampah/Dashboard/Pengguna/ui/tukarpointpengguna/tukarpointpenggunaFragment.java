@@ -69,6 +69,12 @@ public class tukarpointpenggunaFragment extends Fragment {
                 List<Tukarpointgetpointpengguna> datapoint = response.body().getDatapoint();
                 if (datapoint.size() == 0){
                     Jumlahpoint.setText("Jumlah Point : 0");
+                    Ambilpoint.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(getContext(), "POINT TIDAK CUKUP", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }else {
                     Jumlahpoint.setText("Jumlah Point : " + datapoint.get(0).getJumlah_point());
                     Ambilpoint.setOnClickListener(new View.OnClickListener() {
