@@ -1,6 +1,7 @@
 package com.example.tukarsampah.Dashboard.Pengguna.ui.tukarpointpengguna;
 
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.example.tukarsampah.Dashboard.Model.Responsetukarpointgetpointpenggun
 import com.example.tukarsampah.Dashboard.Model.Responsetukarpointgetrewardpengguna;
 import com.example.tukarsampah.Dashboard.Model.Tukarpointgetpointpengguna;
 import com.example.tukarsampah.Dashboard.Model.Tukarpointgetrewardpengguna;
+import com.example.tukarsampah.MasukActivity;
 import com.example.tukarsampah.R;
 
 import java.util.ArrayList;
@@ -43,6 +45,7 @@ public class tukarpointpenggunaFragment extends Fragment {
     private List<String> tempidreward = new ArrayList<String>();
     private List<String> temphadiahreward = new ArrayList<String>();
     private List<String> temppointreward = new ArrayList<String>();
+    private ConnectivityManager Koneksi;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -80,29 +83,34 @@ public class tukarpointpenggunaFragment extends Fragment {
                     Ambilpoint.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            String IDPENGGUNA, JUMLAH_POINT, PERLU_POINT, ID_REWARD;
-                            IDPENGGUNA = idpengguna;
-                            JUMLAH_POINT = datapoint.get(0).getJumlah_point();
-                            PERLU_POINT = temppointreward.get(Reward.getSelectedItemPosition());
-                            ID_REWARD = tempidreward.get(Reward.getSelectedItemPosition());
-                            Operasipengguna operasipengguna2 = Service.Koneksi().create(Operasipengguna.class);
-                            Call<Responseoperasi> responsetukarpoint = operasipengguna2.Tukarpoint(IDPENGGUNA, JUMLAH_POINT, PERLU_POINT, ID_REWARD);
-                            responsetukarpoint.enqueue(new Callback<Responseoperasi>() {
-                                @Override
-                                public void onResponse(Call<Responseoperasi> call, Response<Responseoperasi> response) {
-                                    Toast.makeText(getContext(), response.body().getKETERANGAN(), Toast.LENGTH_SHORT).show();
-                                    tempidreward.clear();
-                                    temphadiahreward.clear();
-                                    temppointreward.clear();
-                                    getPointpengguna(sharedPreferences.getString("ID_AKUN", ""));
-                                    getRewardpengguna();
-                                }
+                            if (cekKoneksi()){
+                                String IDPENGGUNA, JUMLAH_POINT, PERLU_POINT, ID_REWARD;
+                                IDPENGGUNA = idpengguna;
+                                JUMLAH_POINT = datapoint.get(0).getJumlah_point();
+                                PERLU_POINT = temppointreward.get(Reward.getSelectedItemPosition());
+                                ID_REWARD = tempidreward.get(Reward.getSelectedItemPosition());
+                                Operasipengguna operasipengguna2 = Service.Koneksi().create(Operasipengguna.class);
+                                Call<Responseoperasi> responsetukarpoint = operasipengguna2.Tukarpoint(IDPENGGUNA, JUMLAH_POINT, PERLU_POINT, ID_REWARD);
+                                responsetukarpoint.enqueue(new Callback<Responseoperasi>() {
+                                    @Override
+                                    public void onResponse(Call<Responseoperasi> call, Response<Responseoperasi> response) {
+                                        Toast.makeText(getContext(), response.body().getKETERANGAN(), Toast.LENGTH_SHORT).show();
+                                        tempidreward.clear();
+                                        temphadiahreward.clear();
+                                        temppointreward.clear();
+                                        getPointpengguna(sharedPreferences.getString("ID_AKUN", ""));
+                                        getRewardpengguna();
+                                    }
 
-                                @Override
-                                public void onFailure(Call<Responseoperasi> call, Throwable t) {
-                                    Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                                    @Override
+                                    public void onFailure(Call<Responseoperasi> call, Throwable t) {
+                                        Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }else {
+                                Toast.makeText(getContext(), "Mohon Periksa Koneksi", Toast.LENGTH_SHORT).show();
+                            }
+
                         }
                     });
                 }
@@ -145,5 +153,16 @@ public class tukarpointpenggunaFragment extends Fragment {
                 Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private boolean cekKoneksi(){
+        Koneksi = (ConnectivityManager) getActivity().getSystemService(MasukActivity.CONNECTIVITY_SERVICE);
+        {
+            if (Koneksi.getActiveNetworkInfo() != null && Koneksi.getActiveNetworkInfo().isAvailable() && Koneksi.getActiveNetworkInfo().isConnected()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 }

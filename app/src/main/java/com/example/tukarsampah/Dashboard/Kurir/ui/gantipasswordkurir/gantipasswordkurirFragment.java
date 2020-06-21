@@ -1,6 +1,7 @@
 package com.example.tukarsampah.Dashboard.Kurir.ui.gantipasswordkurir;
 
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import com.example.tukarsampah.Api.Service;
 import com.example.tukarsampah.Dashboard.Api.Operasikurir;
 import com.example.tukarsampah.Dashboard.Model.Responseoperasi;
+import com.example.tukarsampah.MasukActivity;
 import com.example.tukarsampah.R;
 
 import retrofit2.Call;
@@ -29,6 +31,7 @@ public class gantipasswordkurirFragment extends Fragment {
     private TextView Passlama, Passbaru, Passbaru2;
     private Button Btnsimpan;
     private SharedPreferences sharedPreferences;
+    private ConnectivityManager Koneksi;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -37,25 +40,29 @@ public class gantipasswordkurirFragment extends Fragment {
         Btnsimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sharedPreferences = getActivity().getSharedPreferences("LOGIN", MODE_PRIVATE);
-                Passlama = (TextView) root.findViewById(R.id.etpasswordlamagantipassword);
-                Passbaru = (TextView) root.findViewById(R.id.etpasswordbarugantipassword);
-                Passbaru2 = (TextView) root.findViewById(R.id.etpasswordbaru2gantipassword);
-                String username, passlama, passbaru, passbaru2;
-                username = sharedPreferences.getString("USERNAME", "");
-                passlama = Passlama.getText().toString().trim();
-                passbaru = Passbaru.getText().toString().trim();
-                passbaru2 = Passbaru2.getText().toString().trim();
+                if (cekKoneksi()){
+                    sharedPreferences = getActivity().getSharedPreferences("LOGIN", MODE_PRIVATE);
+                    Passlama = (TextView) root.findViewById(R.id.etpasswordlamagantipassword);
+                    Passbaru = (TextView) root.findViewById(R.id.etpasswordbarugantipassword);
+                    Passbaru2 = (TextView) root.findViewById(R.id.etpasswordbaru2gantipassword);
+                    String username, passlama, passbaru, passbaru2;
+                    username = sharedPreferences.getString("USERNAME", "");
+                    passlama = Passlama.getText().toString().trim();
+                    passbaru = Passbaru.getText().toString().trim();
+                    passbaru2 = Passbaru2.getText().toString().trim();
 
-                if (passlama.equalsIgnoreCase("") || passbaru.equalsIgnoreCase("") || passbaru2.equalsIgnoreCase("")){
-                    Toast.makeText(getContext(), "Mohon Lengkapi Form", Toast.LENGTH_SHORT).show();
+                    if (passlama.equalsIgnoreCase("") || passbaru.equalsIgnoreCase("") || passbaru2.equalsIgnoreCase("")){
+                        Toast.makeText(getContext(), "Mohon Lengkapi Form", Toast.LENGTH_SHORT).show();
+                    }else {
+                        ubahPassword(username, passlama, passbaru, root);
+                    }
+
+                    Passlama.setText("");
+                    Passbaru.setText("");
+                    Passbaru2.setText("");
                 }else {
-                    ubahPassword(username, passlama, passbaru, root);
+                    Toast.makeText(getContext(), "Mohon Periksa Koneksi", Toast.LENGTH_SHORT).show();
                 }
-
-                Passlama.setText("");
-                Passbaru.setText("");
-                Passbaru2.setText("");
             }
         });
         return root;
@@ -80,5 +87,16 @@ public class gantipasswordkurirFragment extends Fragment {
                 Toast.makeText(getActivity(), "Gagal Menambahkan Reward", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private boolean cekKoneksi(){
+        Koneksi = (ConnectivityManager) getActivity().getSystemService(MasukActivity.CONNECTIVITY_SERVICE);
+        {
+            if (Koneksi.getActiveNetworkInfo() != null && Koneksi.getActiveNetworkInfo().isAvailable() && Koneksi.getActiveNetworkInfo().isConnected()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 }

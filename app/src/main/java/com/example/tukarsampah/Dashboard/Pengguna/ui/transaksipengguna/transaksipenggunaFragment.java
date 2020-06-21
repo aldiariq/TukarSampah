@@ -2,6 +2,7 @@ package com.example.tukarsampah.Dashboard.Pengguna.ui.transaksipengguna;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -25,6 +26,7 @@ import com.example.tukarsampah.Dashboard.Model.Responsegettransaksipengguna;
 import com.example.tukarsampah.Dashboard.Model.Responseoperasi;
 import com.example.tukarsampah.Dashboard.Model.Responsetransaksigetkurirpengguna;
 import com.example.tukarsampah.Dashboard.Model.Transaksigettransaksipengguna;
+import com.example.tukarsampah.MasukActivity;
 import com.example.tukarsampah.R;
 
 import java.util.ArrayList;
@@ -47,6 +49,7 @@ public class transaksipenggunaFragment extends Fragment {
     private CardView Cardtransaksi;
     private TextView Idtransaksi, Jumlahtransaksi, Tgltransaksi, Namakurir;
     private Button Bataltransaksi, Teleponkurir;
+    private ConnectivityManager Koneksi;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -59,11 +62,15 @@ public class transaksipenggunaFragment extends Fragment {
         Transaksi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String idpengguna, idkurir, banyaksampah;
-                idpengguna = sharedPreferences.getString("ID_AKUN", "");
-                banyaksampah = Banyaksampah.getText().toString().trim();
-                idkurir = tempidkurir.get(Kurir.getSelectedItemPosition());
-                fungsiTransaksi(idpengguna, idkurir, banyaksampah, root);
+                if (cekKoneksi()){
+                    String idpengguna, idkurir, banyaksampah;
+                    idpengguna = sharedPreferences.getString("ID_AKUN", "");
+                    banyaksampah = Banyaksampah.getText().toString().trim();
+                    idkurir = tempidkurir.get(Kurir.getSelectedItemPosition());
+                    fungsiTransaksi(idpengguna, idkurir, banyaksampah, root);
+                }else {
+                    Toast.makeText(getContext(), "Mohon Periksa Koneksi", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         return root;
@@ -205,5 +212,16 @@ public class transaksipenggunaFragment extends Fragment {
                 Toast.makeText(getContext(), "GAGAL MENDAPATKAN DATA", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private boolean cekKoneksi(){
+        Koneksi = (ConnectivityManager) getActivity().getSystemService(MasukActivity.CONNECTIVITY_SERVICE);
+        {
+            if (Koneksi.getActiveNetworkInfo() != null && Koneksi.getActiveNetworkInfo().isAvailable() && Koneksi.getActiveNetworkInfo().isConnected()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 }

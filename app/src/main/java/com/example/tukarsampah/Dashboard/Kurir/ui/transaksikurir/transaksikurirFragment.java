@@ -2,6 +2,7 @@ package com.example.tukarsampah.Dashboard.Kurir.ui.transaksikurir;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import com.example.tukarsampah.Dashboard.Api.Operasikurir;
 import com.example.tukarsampah.Dashboard.Model.Responsegettransaksikurir;
 import com.example.tukarsampah.Dashboard.Model.Responseoperasi;
 import com.example.tukarsampah.Dashboard.Model.Transaksigettransaksikurir;
+import com.example.tukarsampah.MasukActivity;
 import com.example.tukarsampah.R;
 
 import java.util.List;
@@ -35,6 +37,7 @@ public class transaksikurirFragment extends Fragment {
     private SharedPreferences sharedPreferences;
     private TextView Idtransaksi, Jumlahtransaksi, Tgltransaksi, Namapengguna;
     private Button Terimatransaksi, Teleponpengguna;
+    private ConnectivityManager Koneksi;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -83,25 +86,29 @@ public class transaksikurirFragment extends Fragment {
                     Terimatransaksi.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            String IDTRANSAKSI, IDPENGGUNA, JUMLAH_TRANSAKSI;
-                            IDTRANSAKSI = datatransaksi.get(0).getId_transaksi();
-                            IDPENGGUNA = datatransaksi.get(0).getId_pengguna();
-                            JUMLAH_TRANSAKSI = datatransaksi.get(0).getJumlah_transaksi();
-                            Operasikurir operasikurir2 = Service.Koneksi().create(Operasikurir.class);
-                            Call<Responseoperasi> responseterimatransaksi = operasikurir2.Terimatransaksi(IDTRANSAKSI, IDPENGGUNA, JUMLAH_TRANSAKSI);
-                            responseterimatransaksi.enqueue(new Callback<Responseoperasi>() {
-                                @Override
-                                public void onResponse(Call<Responseoperasi> call, Response<Responseoperasi> response) {
-                                    Toast.makeText(getContext(), response.body().getKETERANGAN(), Toast.LENGTH_SHORT).show();
-                                    kosongkanInputan();
-                                    getTransaksiKurir(sharedPreferences.getString("ID_AKUN", ""));
-                                }
+                            if (cekKoneksi()){
+                                String IDTRANSAKSI, IDPENGGUNA, JUMLAH_TRANSAKSI;
+                                IDTRANSAKSI = datatransaksi.get(0).getId_transaksi();
+                                IDPENGGUNA = datatransaksi.get(0).getId_pengguna();
+                                JUMLAH_TRANSAKSI = datatransaksi.get(0).getJumlah_transaksi();
+                                Operasikurir operasikurir2 = Service.Koneksi().create(Operasikurir.class);
+                                Call<Responseoperasi> responseterimatransaksi = operasikurir2.Terimatransaksi(IDTRANSAKSI, IDPENGGUNA, JUMLAH_TRANSAKSI);
+                                responseterimatransaksi.enqueue(new Callback<Responseoperasi>() {
+                                    @Override
+                                    public void onResponse(Call<Responseoperasi> call, Response<Responseoperasi> response) {
+                                        Toast.makeText(getContext(), response.body().getKETERANGAN(), Toast.LENGTH_SHORT).show();
+                                        kosongkanInputan();
+                                        getTransaksiKurir(sharedPreferences.getString("ID_AKUN", ""));
+                                    }
 
-                                @Override
-                                public void onFailure(Call<Responseoperasi> call, Throwable t) {
-                                    Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                                    @Override
+                                    public void onFailure(Call<Responseoperasi> call, Throwable t) {
+                                        Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }else {
+                                Toast.makeText(getContext(), "Mohon Periksa Koneksi", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     });
 
@@ -122,5 +129,16 @@ public class transaksikurirFragment extends Fragment {
                 Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private boolean cekKoneksi(){
+        Koneksi = (ConnectivityManager) getActivity().getSystemService(MasukActivity.CONNECTIVITY_SERVICE);
+        {
+            if (Koneksi.getActiveNetworkInfo() != null && Koneksi.getActiveNetworkInfo().isAvailable() && Koneksi.getActiveNetworkInfo().isConnected()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 }
