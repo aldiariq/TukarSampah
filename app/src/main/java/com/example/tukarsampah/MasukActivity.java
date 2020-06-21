@@ -1,7 +1,5 @@
 package com.example.tukarsampah;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,10 +12,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.tukarsampah.Api.Operasi;
 import com.example.tukarsampah.Api.Service;
-import com.example.tukarsampah.Dashboard.Kurir.DashboardKurirActivity;
 import com.example.tukarsampah.Dashboard.Admin.DashboardAdminActivity;
+import com.example.tukarsampah.Dashboard.Kurir.DashboardKurirActivity;
 import com.example.tukarsampah.Dashboard.Pengguna.DashboardPenggunaActivity;
 import com.example.tukarsampah.Model.ResponseMasuk;
 
@@ -131,7 +131,7 @@ public class MasukActivity extends AppCompatActivity {
                     Toast.makeText(MasukActivity.this, "Log In Berhasil..", Toast.LENGTH_SHORT).show();
                     sharedPreferencesEditor.putString("STATUS", response.body().getSTATUS());
                     sharedPreferencesEditor.putString("KETERANGAN", response.body().getKETERANGAN());
-                    sharedPreferencesEditor.putString("ID_AKUN", response.body().getIDPENGGUNA());
+                    sharedPreferencesEditor.putString("ID_AKUN", response.body().getIDAKUN());
                     sharedPreferencesEditor.putString("USERNAME", response.body().getUSERNAME());
                     sharedPreferencesEditor.putString("TIPEAKUN", response.body().getTIPEAKUN());
                     sharedPreferencesEditor.apply();

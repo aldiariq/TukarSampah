@@ -40,7 +40,6 @@ public class gantipasswordadminFragment extends Fragment {
                 Passlama = (TextView) root.findViewById(R.id.etpasswordlamagantipassword);
                 Passbaru = (TextView) root.findViewById(R.id.etpasswordbarugantipassword);
                 Passbaru2 = (TextView) root.findViewById(R.id.etpasswordbaru2gantipassword);
-
                 String username, passlama, passbaru, passbaru2;
                 username = sharedPreferences.getString("USERNAME", "");
                 passlama = Passlama.getText().toString().trim();

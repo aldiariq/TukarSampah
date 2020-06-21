@@ -9,7 +9,7 @@
         <item>PENGGUNA</item>
         <item>KURIR</item>
     </string-array>
-    <string name="title_activity_dashboard_admin">DashboardAdminActivity</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -20,20 +20,23 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
-    <string name="title_activity_dashboard_kurir">DashboardKurirActivity</string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="title_activity_dashboard_admin">DashboardAdminActivity</string>
     <string name="menu_kelolapengguna_admin">Kelola Pengguna</string>
     <string name="menu_kelolakurir_admin">Kelola Kurir</string>
     <string name="menu_kelolareward_admin">Kelola Reward</string>
     <string name="menu_gantipassword_admin">Ganti Password</string>
     <string name="menu_logout_admin">Log Out</string>
 
+    <string name="title_activity_dashboard_pengguna">DashboardPenggunaActivity</string>
     <string name="menu_transaksi_pengguna">Transaksi</string>
     <string name="menu_tukarpoint_pengguna">Tukar Point</string>
     <string name="menu_gantipassword_pengguna">Ganti Password</string>
     <string name="menu_logout_pengguna">Log Out</string>
 
+    <string name="title_activity_dashboard_kurir">DashboardKurirActivity</string>
     <string name="menu_transaksi_kurir">Transaksi</string>
     <string name="menu_gantipassword_kurir">Ganti Password</string>
     <string name="menu_logout_kurir">Log Out</string>

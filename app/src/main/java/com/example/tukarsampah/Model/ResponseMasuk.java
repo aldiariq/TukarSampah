@@ -10,9 +10,9 @@ public class ResponseMasuk {
     @SerializedName("KETERANGAN")
     @Expose
     private String kETERANGAN;
-    @SerializedName("ID_PENGGUNA")
+    @SerializedName("ID_AKUN")
     @Expose
-    private String iDPENGGUNA;
+    private String iDAKUN;
     @SerializedName("USERNAME")
     @Expose
     private String uSERNAME;
@@ -36,12 +36,12 @@ public class ResponseMasuk {
         this.kETERANGAN = kETERANGAN;
     }
 
-    public String getIDPENGGUNA() {
-        return iDPENGGUNA;
+    public String getIDAKUN() {
+        return iDAKUN;
     }
 
-    public void setIDPENGGUNA(String iDPENGGUNA) {
-        this.iDPENGGUNA = iDPENGGUNA;
+    public void setIDAKUN(String iDAKUN) {
+        this.iDAKUN = iDAKUN;
     }
 
     public String getUSERNAME() {

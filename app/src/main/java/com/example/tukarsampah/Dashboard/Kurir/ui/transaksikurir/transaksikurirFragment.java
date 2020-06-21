@@ -1,21 +1,126 @@
 package com.example.tukarsampah.Dashboard.Kurir.ui.transaksikurir;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.tukarsampah.Api.Service;
+import com.example.tukarsampah.Dashboard.Api.Operasikurir;
+import com.example.tukarsampah.Dashboard.Model.Responsegettransaksikurir;
+import com.example.tukarsampah.Dashboard.Model.Responseoperasi;
+import com.example.tukarsampah.Dashboard.Model.Transaksigettransaksikurir;
 import com.example.tukarsampah.R;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 public class transaksikurirFragment extends Fragment {
 
+    private SharedPreferences sharedPreferences;
+    private TextView Idtransaksi, Jumlahtransaksi, Tgltransaksi, Namapengguna;
+    private Button Terimatransaksi, Teleponpengguna;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.transaksi_kurir_fragment, container, false);
+        initView(root);
+        sharedPreferences = getContext().getSharedPreferences("LOGIN", MODE_PRIVATE);
+        getTransaksiKurir(sharedPreferences.getString("ID_AKUN", ""));
         return root;
+    }
+
+    private void initView(View view){
+        Idtransaksi = (TextView) view.findViewById(R.id.txtIdtransaksi_transaksi_kurir);
+        Jumlahtransaksi = (TextView) view.findViewById(R.id.txtJumlah_transaksi_kurir);
+        Tgltransaksi = (TextView) view.findViewById(R.id.txtTgl_transaksi_kurir);
+        Namapengguna = (TextView) view.findViewById(R.id.txtNamapengguna_transaksi_kurir);
+        Terimatransaksi = (Button) view.findViewById(R.id.btnTerimatransaksitransaksikurir);
+        Teleponpengguna = (Button) view.findViewById(R.id.btnTeleponpenggunatransaksikurir);
+    }
+
+    private void kosongkanInputan(){
+        Idtransaksi.setText("Id Transaksi : ");
+        Jumlahtransaksi.setText("Jumlah Transaksi : ");
+        Tgltransaksi.setText("Tanggal Transaksi : ");
+        Namapengguna.setText("Nama Pengguna : ");
+    }
+
+    private void getTransaksiKurir(String idkurir){
+        Operasikurir operasikurir = Service.Koneksi().create(Operasikurir.class);
+        Call<Responsegettransaksikurir> responsegettransaksikurir = operasikurir.getTransaksikurir(idkurir);
+        responsegettransaksikurir.enqueue(new Callback<Responsegettransaksikurir>() {
+            @Override
+            public void onResponse(Call<Responsegettransaksikurir> call, Response<Responsegettransaksikurir> response) {
+                List<Transaksigettransaksikurir> datatransaksi = response.body().getTransaksikurir();
+                if (datatransaksi.size() == 0){
+                    Terimatransaksi.setEnabled(false);
+                    Teleponpengguna.setEnabled(false);
+                }else {
+                    Terimatransaksi.setEnabled(true);
+                    Teleponpengguna.setEnabled(true);
+
+                    Idtransaksi.setText("Id Transaksi : " + datatransaksi.get(0).getId_transaksi());
+                    Jumlahtransaksi.setText("Jumlah Transaksi : " + datatransaksi.get(0).getJumlah_transaksi() + "Kg");
+                    Tgltransaksi.setText("Tanggal Transaksi : " + datatransaksi.get(0).getTgl_transaksi());
+                    Namapengguna.setText("Nama Pengguna : " + datatransaksi.get(0).getUsername_pengguna());
+
+                    Terimatransaksi.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String IDTRANSAKSI, IDPENGGUNA, JUMLAH_TRANSAKSI;
+                            IDTRANSAKSI = datatransaksi.get(0).getId_transaksi();
+                            IDPENGGUNA = datatransaksi.get(0).getId_pengguna();
+                            JUMLAH_TRANSAKSI = datatransaksi.get(0).getJumlah_transaksi();
+                            Operasikurir operasikurir2 = Service.Koneksi().create(Operasikurir.class);
+                            Call<Responseoperasi> responseterimatransaksi = operasikurir2.Terimatransaksi(IDTRANSAKSI, IDPENGGUNA, JUMLAH_TRANSAKSI);
+                            responseterimatransaksi.enqueue(new Callback<Responseoperasi>() {
+                                @Override
+                                public void onResponse(Call<Responseoperasi> call, Response<Responseoperasi> response) {
+                                    Toast.makeText(getContext(), response.body().getKETERANGAN(), Toast.LENGTH_SHORT).show();
+                                    kosongkanInputan();
+                                    getTransaksiKurir(sharedPreferences.getString("ID_AKUN", ""));
+                                }
+
+                                @Override
+                                public void onFailure(Call<Responseoperasi> call, Throwable t) {
+                                    Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    });
+
+                    Teleponpengguna.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent teleponpengguna = new Intent(Intent.ACTION_CALL);
+                            teleponpengguna.setData(Uri.parse("tel:" + datatransaksi.get(0).getNohp_pengguna()));
+                            startActivity(teleponpengguna);
+                        }
+                    });
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Responsegettransaksikurir> call, Throwable t) {
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

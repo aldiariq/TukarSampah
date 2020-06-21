@@ -1,6 +1,10 @@
 package com.example.tukarsampah.Dashboard.Kurir;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -10,12 +14,17 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.tukarsampah.Dashboard.Pengguna.DashboardPenggunaActivity;
+import com.example.tukarsampah.MasukActivity;
 import com.example.tukarsampah.R;
 import com.google.android.material.navigation.NavigationView;
 
 public class DashboardKurirActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
+    private TextView txtUsername, txtTipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +43,10 @@ public class DashboardKurirActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        navigationView.getMenu().findItem(R.id.nav_logout_kurir).setOnMenuItemClickListener(menuItem -> {
+            fungsiLogout();
+            return true;
+        });
     }
 
     @Override
@@ -48,5 +61,18 @@ public class DashboardKurirActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    private void fungsiLogout(){
+        editor = getSharedPreferences("LOGIN", MODE_PRIVATE).edit();
+        editor.putString("STATUS", "");
+        editor.putString("KETERANGAN", "");
+        editor.putString("ID_AKUN", "");
+        editor.putString("USERNAME", "");
+        editor.putString("TIPEAKUN", "");
+        editor.apply();
+        Toast.makeText(DashboardKurirActivity.this, "Berhasil Log Out", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(DashboardKurirActivity.this, MasukActivity.class));
+        finish();
     }
 }
