@@ -37,4 +37,12 @@ public interface Operasipengguna {
     Call<Responsegettransaksipengguna> getTransaksipengguna(
             @Field("id_pengguna") String idpengguna
     );
+
+    @FormUrlEncoded
+    @POST("bataltransaksi")
+    Call<Responseoperasi> Bataltransaksipengguna(
+            @Field("id_transaksi") String idtransaksi
+    );
+
+
 }

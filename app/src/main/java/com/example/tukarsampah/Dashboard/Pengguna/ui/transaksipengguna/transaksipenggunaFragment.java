@@ -1,6 +1,8 @@
 package com.example.tukarsampah.Dashboard.Pengguna.ui.transaksipengguna;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -41,14 +44,16 @@ public class transaksipenggunaFragment extends Fragment {
     private List<String> tempidkurir = new ArrayList<String>();
     private SharedPreferences sharedPreferences;
     private CardView Cardtransaksi;
+    private TextView Idtransaksi, Jumlahtransaksi, Tgltransaksi, Namakurir;
+    private Button Bataltransaksi, Teleponkurir;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.transaksi_pengguna_fragment, container, false);
         initView(root);
         sharedPreferences = getContext().getSharedPreferences("LOGIN", MODE_PRIVATE);
+
         getTransaksiPengguna(sharedPreferences.getString("ID_AKUN", ""));
-        setSpinner();
 
         Transaksi.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +73,21 @@ public class transaksipenggunaFragment extends Fragment {
         Kurir = (Spinner) root.findViewById(R.id.spKurirtransaksipengguna);
         Transaksi = (Button) root.findViewById(R.id.btnTransaksitransaksipengguna);
         Cardtransaksi = (CardView) root.findViewById(R.id.card_datatransaksi_pengguna);
+        Idtransaksi = (TextView) root.findViewById(R.id.txtIdtransaksi_transaksi_pengguna);
+        Jumlahtransaksi = (TextView) root.findViewById(R.id.txtJumlah_transaksi_pengguna);
+        Tgltransaksi = (TextView) root.findViewById(R.id.txtTgl_transaksi_pengguna);
+        Namakurir = (TextView) root.findViewById(R.id.txtNamakurir_transaksi_pengguna);
+        Bataltransaksi = (Button) root.findViewById(R.id.btnBataltransaksitransaksipengguna);
+        Teleponkurir = (Button) root.findViewById(R.id.btnTeleponkurirtransaksipengguna);
+    }
+
+    private void kosongkanInputan(){
+        Banyaksampah.setText("");
+        Kurir.setSelection(0);
+        Idtransaksi.setText("Id Transaksi : ");
+        Jumlahtransaksi.setText("Jumlah Transaksi : ");
+        Tgltransaksi.setText("Tanggal Transaksi : ");
+        Namakurir.setText("Nama Kurir : ");
     }
 
     private void setSpinner(){
@@ -110,8 +130,8 @@ public class transaksipenggunaFragment extends Fragment {
             public void onResponse(Call<Responseoperasi> call, Response<Responseoperasi> response) {
                 if (response.body().getSTATUS().equalsIgnoreCase("BERHASIL")){
                     Toast.makeText(root.getContext(), response.body().getKETERANGAN(), Toast.LENGTH_SHORT).show();
-                    Banyaksampah.setText("");
-                    Kurir.setSelection(0);
+                    kosongkanInputan();
+                    getTransaksiPengguna(sharedPreferences.getString("ID_AKUN", ""));
                 }else {
                     Toast.makeText(root.getContext(), response.body().getKETERANGAN(), Toast.LENGTH_SHORT).show();
                 }
@@ -132,22 +152,56 @@ public class transaksipenggunaFragment extends Fragment {
             public void onResponse(Call<Responsegettransaksipengguna> call, Response<Responsegettransaksipengguna> response) {
                 List<Transaksigettransaksipengguna> datatransaksi = response.body().getTransaksipengguna();
                 if (datatransaksi.size() != 0){
+                    Cardtransaksi.setVisibility(View.VISIBLE);
                     Banyaksampah.setVisibility(View.GONE);
                     Kurir.setVisibility(View.GONE);
                     Transaksi.setVisibility(View.GONE);
+
+                    Idtransaksi.setText("Id Transaksi : " + datatransaksi.get(0).getId_transaksi());
+                    Jumlahtransaksi.setText("Jumlah Transaksi : " + datatransaksi.get(0).getJumlah_transaksi() + "Kg");
+                    Tgltransaksi.setText("Tanggal Transaksi : " + datatransaksi.get(0).getTgl_transaksi());
+                    Namakurir.setText("Nama Kurir : " + datatransaksi.get(0).getUsername_kurir());
+
+                    Bataltransaksi.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Call<Responseoperasi> Bataltransaksi = operasipengguna.Bataltransaksipengguna(datatransaksi.get(0).getId_transaksi());
+                            Bataltransaksi.enqueue(new Callback<Responseoperasi>() {
+                                @Override
+                                public void onResponse(Call<Responseoperasi> call, Response<Responseoperasi> response) {
+                                    kosongkanInputan();
+                                    getTransaksiPengguna(sharedPreferences.getString("ID_AKUN", ""));
+                                }
+
+                                @Override
+                                public void onFailure(Call<Responseoperasi> call, Throwable t) {
+                                    Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    });
+
+                    Teleponkurir.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent teleponkurir = new Intent(Intent.ACTION_CALL);
+                            teleponkurir.setData(Uri.parse("tel:" + datatransaksi.get(0).getNohp_kurir()));
+                            startActivity(teleponkurir);
+                        }
+                    });
                 }else {
                     Cardtransaksi.setVisibility(View.GONE);
-                }
-
-                for (int i = 0; i < datatransaksi.size(); i++){
-                    Toast.makeText(getContext(), datatransaksi.get(i).getId_pengguna(), Toast.LENGTH_SHORT).show();
+                    Banyaksampah.setVisibility(View.VISIBLE);
+                    Kurir.setVisibility(View.VISIBLE);
+                    Transaksi.setVisibility(View.VISIBLE);
+                    setSpinner();
                 }
 
             }
 
             @Override
             public void onFailure(Call<Responsegettransaksipengguna> call, Throwable t) {
-
+                Toast.makeText(getContext(), "GAGAL MENDAPATKAN DATA", Toast.LENGTH_SHORT).show();
             }
         });
     }

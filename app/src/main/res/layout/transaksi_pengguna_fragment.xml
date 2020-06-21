@@ -62,7 +62,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/card_datatransaksi_pengguna"
         android:layout_width="match_parent"
-        android:layout_height="195dp"
+        android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
@@ -73,33 +73,63 @@
         app:layout_constraintTop_toBottomOf="@+id/btnTransaksitransaksipengguna"
         app:layout_constraintVertical_bias="0.0">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_margin="5dp">
+            android:layout_margin="5dp"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/txtIdtransaksi_transaksi_pengguna"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="text"
-                android:hint="Id Transaksi"
                 android:layout_margin="5dp"
-                android:textSize="20sp">
-            </TextView>
+                android:ems="10"
+                android:hint="Id Transaksi"
+                android:inputType="text"
+                android:textSize="20sp"></TextView>
 
             <TextView
-                android:id="@+id/txtNamapengguna_transaksi_pengguna"
+                android:id="@+id/txtJumlah_transaksi_pengguna"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="text"
-                android:hint="Nama Pengguna"
                 android:layout_margin="5dp"
-                android:textSize="20sp">
-            </TextView>
+                android:ems="10"
+                android:hint="Jumlah Transaksi"
+                android:inputType="text"
+                android:textSize="20sp"></TextView>
+
+            <TextView
+                android:id="@+id/txtTgl_transaksi_pengguna"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:ems="10"
+                android:hint="Tanggal Transaksi"
+                android:inputType="text"
+                android:textSize="20sp"></TextView>
+
+            <TextView
+                android:id="@+id/txtNamakurir_transaksi_pengguna"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:ems="10"
+                android:hint="Nama Kurir"
+                android:inputType="text"
+                android:textSize="20sp"></TextView>
+
+            <Button
+                android:id="@+id/btnBataltransaksitransaksipengguna"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Batalkan"></Button>
+
+            <Button
+                android:id="@+id/btnTeleponkurirtransaksipengguna"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Telepon Kurir"></Button>
 
         </LinearLayout>
 
