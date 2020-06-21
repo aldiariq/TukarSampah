@@ -18,7 +18,7 @@
         tools:layout="@layout/transaksi_kurir_fragment" />
 
     <fragment
-        android:id="@+id/nav_gantipassword_pengguna"
+        android:id="@+id/nav_gantipassword_kurir"
         android:name="com.example.tukarsampah.Dashboard.Kurir.ui.gantipasswordkurir.gantipasswordkurirFragment"
         android:label="@string/menu_gantipassword_kurir"
         tools:layout="@layout/gantipassword_fragment" />

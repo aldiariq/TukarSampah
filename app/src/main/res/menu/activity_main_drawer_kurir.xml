@@ -9,7 +9,7 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/nav_transaksi_pengguna"
+            android:id="@+id/nav_transaksi_kurir"
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/menu_transaksi_kurir" />
         <item
