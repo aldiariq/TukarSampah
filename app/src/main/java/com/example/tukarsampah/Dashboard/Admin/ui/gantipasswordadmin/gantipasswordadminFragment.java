@@ -62,9 +62,9 @@ public class gantipasswordadminFragment extends Fragment {
 
     public void ubahPassword(String Username, String Passlama, String Passbaru, View itemView){
         Operasiadmin operasiadmin = Service.Koneksi().create(Operasiadmin.class);
-        Call<Responseoperasi> tampilData = operasiadmin.ubahPassword(Username, Passlama, Passbaru, "ADMIN");
+        Call<Responseoperasi> ubahpassword = operasiadmin.ubahPassword(Username, Passlama, Passbaru, "ADMIN");
 
-        tampilData.enqueue(new Callback<Responseoperasi>() {
+        ubahpassword.enqueue(new Callback<Responseoperasi>() {
             @Override
             public void onResponse(Call<Responseoperasi> call, Response<Responseoperasi> response) {
                 if (response.body().getSTATUS().equalsIgnoreCase("BERHASIL")){
