@@ -1,6 +1,6 @@
 package com.example.tukarsampah.Dashboard.Model;
 
-public class Transaksigetrewardpengguna {
+public class Tukarpointgetrewardpengguna {
 
     private String id_reward, hadiah_reward, point_reward;
 

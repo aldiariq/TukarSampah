@@ -3,6 +3,7 @@ package com.example.tukarsampah.Dashboard.Api;
 import com.example.tukarsampah.Dashboard.Model.Responsegettransaksipengguna;
 import com.example.tukarsampah.Dashboard.Model.Responseoperasi;
 import com.example.tukarsampah.Dashboard.Model.Responsetransaksigetkurirpengguna;
+import com.example.tukarsampah.Dashboard.Model.Responsetukarpointgetpointpengguna;
 import com.example.tukarsampah.Dashboard.Model.Responsetukarpointgetrewardpengguna;
 
 import retrofit2.Call;
@@ -43,6 +44,12 @@ public interface Operasipengguna {
     @POST("bataltransaksi")
     Call<Responseoperasi> Bataltransaksipengguna(
             @Field("id_transaksi") String idtransaksi
+    );
+
+    @FormUrlEncoded
+    @POST("ambilpoint")
+    Call<Responsetukarpointgetpointpengguna> getPointpengguna(
+            @Field("id_pengguna") String idpengguna
     );
 
     @GET("getreward")
