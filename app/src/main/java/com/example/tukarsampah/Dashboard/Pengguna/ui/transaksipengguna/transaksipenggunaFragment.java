@@ -196,7 +196,6 @@ public class transaksipenggunaFragment extends Fragment {
                     Transaksi.setVisibility(View.VISIBLE);
                     setSpinner();
                 }
-
             }
 
             @Override
