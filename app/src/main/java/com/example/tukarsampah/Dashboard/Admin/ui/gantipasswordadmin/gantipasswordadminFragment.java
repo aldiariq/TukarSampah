@@ -83,7 +83,7 @@ public class gantipasswordadminFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Responseoperasi> call, Throwable t) {
-                Toast.makeText(getActivity(), "Gagal Menambahkan Reward", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Mohon Periksa Koneksi", Toast.LENGTH_SHORT).show();
             }
         });
     }
