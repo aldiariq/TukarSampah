@@ -115,6 +115,8 @@ public class Adapterkelolapenggunaadmin extends RecyclerView.Adapter<Adapterkelo
                 @Override
                 public void onResponse(Call<Responseoperasi> call, Response<Responseoperasi> response) {
                     if (response.body().getSTATUS().equalsIgnoreCase("BERHASIL")){
+                        listPengguna.remove(getPosition());
+                        notifyItemRemoved(getPosition());
                         Toast.makeText(itemView.getContext(), response.body().getKETERANGAN(), Toast.LENGTH_SHORT).show();
                     }else {
                         Toast.makeText(itemView.getContext(), response.body().getKETERANGAN(), Toast.LENGTH_SHORT).show();

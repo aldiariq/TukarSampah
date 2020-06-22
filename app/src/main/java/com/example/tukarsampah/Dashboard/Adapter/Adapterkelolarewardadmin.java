@@ -107,6 +107,9 @@ public class Adapterkelolarewardadmin extends RecyclerView.Adapter<Adapterkelola
                 @Override
                 public void onResponse(Call<Responseoperasi> call, Response<Responseoperasi> response) {
                     if (response.body().getSTATUS().equalsIgnoreCase("BERHASIL")){
+                        listReward.remove(getPosition());
+                        notifyItemRemoved(getPosition());
+
                         Toast.makeText(itemView.getContext(), response.body().getKETERANGAN(), Toast.LENGTH_SHORT).show();
                     }else {
                         Toast.makeText(itemView.getContext(), response.body().getKETERANGAN(), Toast.LENGTH_SHORT).show();

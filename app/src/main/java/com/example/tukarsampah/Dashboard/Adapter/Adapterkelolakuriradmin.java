@@ -11,9 +11,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tukarsampah.Api.Service;
+import com.example.tukarsampah.Dashboard.Admin.ui.kelolakuriradmin.kelolakuriradminFragment;
 import com.example.tukarsampah.Dashboard.Api.Operasiadmin;
 import com.example.tukarsampah.Dashboard.Model.Kelolakuriradmin;
 import com.example.tukarsampah.Dashboard.Model.Responseoperasi;
@@ -56,6 +59,8 @@ public class Adapterkelolakuriradmin extends RecyclerView.Adapter<Adapterkelolak
     public int getItemCount() {
         return listKurir.size();
     }
+
+
 
     public class HolderData extends RecyclerView.ViewHolder {
         TextView tvId, tvUsername;
@@ -115,6 +120,8 @@ public class Adapterkelolakuriradmin extends RecyclerView.Adapter<Adapterkelolak
                 @Override
                 public void onResponse(Call<Responseoperasi> call, Response<Responseoperasi> response) {
                     if (response.body().getSTATUS().equalsIgnoreCase("BERHASIL")){
+                        listKurir.remove(getPosition());
+                        notifyItemRemoved(getPosition());
                         Toast.makeText(itemView.getContext(), response.body().getKETERANGAN(), Toast.LENGTH_SHORT).show();
                     }else {
                         Toast.makeText(itemView.getContext(), response.body().getKETERANGAN(), Toast.LENGTH_SHORT).show();
@@ -148,6 +155,12 @@ public class Adapterkelolakuriradmin extends RecyclerView.Adapter<Adapterkelolak
             });
         }
 
-
+        private void reloadFragment(){
+            AppCompatActivity activity = (AppCompatActivity) itemView.getContext();
+            kelolakuriradminFragment myFragment = new kelolakuriradminFragment();
+            FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction().remove(myFragment);
+            fragmentTransaction.commit();
+        }
     }
+
 }

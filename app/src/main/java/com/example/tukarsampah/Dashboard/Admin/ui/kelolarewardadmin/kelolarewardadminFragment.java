@@ -39,11 +39,13 @@ public class kelolarewardadminFragment extends Fragment {
     private List<Kelolarewardadmin> listReward = new ArrayList<>();
     private FloatingActionButton fabReward;
     private ConnectivityManager Koneksi;
+    private View root2;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.kelolareward_admin_fragment, container, false);
-        ambilDatareward(root);
+        root2 = root;
+        ambilDatareward(root2);
         fabReward = (FloatingActionButton) root.findViewById(R.id.fabkelolarewardadmin);
         fabReward.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,6 +117,7 @@ public class kelolarewardadminFragment extends Fragment {
             @Override
             public void onResponse(Call<Responseoperasi> call, Response<Responseoperasi> response) {
                 if (response.body().getSTATUS().equalsIgnoreCase("BERHASIL")){
+                    ambilDatareward(root2);
                     Toast.makeText(itemView.getContext(), response.body().getKETERANGAN(), Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(itemView.getContext(), response.body().getKETERANGAN(), Toast.LENGTH_SHORT).show();
