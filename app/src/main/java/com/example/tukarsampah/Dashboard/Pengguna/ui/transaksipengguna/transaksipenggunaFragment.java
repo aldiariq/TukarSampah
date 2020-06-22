@@ -69,7 +69,11 @@ public class transaksipenggunaFragment extends Fragment {
                     idpengguna = sharedPreferences.getString("ID_AKUN", "");
                     banyaksampah = Banyaksampah.getText().toString().trim();
                     idkurir = tempidkurir.get(Kurir.getSelectedItemPosition());
-                    fungsiTransaksi(idpengguna, idkurir, banyaksampah, root);
+                    if (idpengguna.equalsIgnoreCase("") || banyaksampah.equalsIgnoreCase("") || idkurir.equalsIgnoreCase("")){
+                        Toast.makeText(getContext(), "Mohon Lengkapi Inputan", Toast.LENGTH_SHORT).show();
+                    }else {
+                        fungsiTransaksi(idpengguna, idkurir, banyaksampah, root);
+                    }
                 }else {
                     Toast.makeText(getContext(), "Mohon Periksa Koneksi", Toast.LENGTH_SHORT).show();
                 }
@@ -109,20 +113,26 @@ public class transaksipenggunaFragment extends Fragment {
             public void onResponse(Call<Responsetransaksigetkurirpengguna> call, Response<Responsetransaksigetkurirpengguna> response) {
                 List<Kelolakuriradmin> datakurir = response.body().getData();
 
-                for (int i = 0; i < datakurir.size(); i++){
-                    String idkurir = datakurir.get(i).getId_kurir();
-                    tempidkurir.add(idkurir);
-                    String usernamekurir = datakurir.get(i).getUsername_kurir();
-                    tempusernamekurir.add(usernamekurir);
+                if (datakurir.size() == 0){
+                    Toast.makeText(getContext(), "Belum Ada Kurir", Toast.LENGTH_SHORT).show();
+                    Transaksi.setEnabled(false);
+                }else {
+                    Transaksi.setEnabled(true);
+                    for (int i = 0; i < datakurir.size(); i++){
+                        String idkurir = datakurir.get(i).getId_kurir();
+                        tempidkurir.add(idkurir);
+                        String usernamekurir = datakurir.get(i).getUsername_kurir();
+                        tempusernamekurir.add(usernamekurir);
+                    }
+
+                    ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>
+                            (getActivity(), android.R.layout.simple_spinner_item, tempusernamekurir );
+
+                    dataAdapter.setDropDownViewResource
+                            (android.R.layout.simple_spinner_dropdown_item);
+
+                    Kurir.setAdapter(dataAdapter);
                 }
-
-                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>
-                        (getActivity(), android.R.layout.simple_spinner_item, tempusernamekurir );
-
-                dataAdapter.setDropDownViewResource
-                        (android.R.layout.simple_spinner_dropdown_item);
-
-                Kurir.setAdapter(dataAdapter);
             }
 
             @Override

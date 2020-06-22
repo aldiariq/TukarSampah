@@ -120,8 +120,10 @@ public class Adapterkelolakuriradmin extends RecyclerView.Adapter<Adapterkelolak
                 @Override
                 public void onResponse(Call<Responseoperasi> call, Response<Responseoperasi> response) {
                     if (response.body().getSTATUS().equalsIgnoreCase("BERHASIL")){
-                        listKurir.remove(getPosition());
-                        notifyItemRemoved(getPosition());
+//                        kelolakuriradminFragment fragment = new kelolakuriradminFragment();
+//                        ((kelolakuriradminFragment) fragment).ambilDatakurir();
+                        listKurir.remove(getLayoutPosition());
+                        notifyItemRemoved(getLayoutPosition());
                         Toast.makeText(itemView.getContext(), response.body().getKETERANGAN(), Toast.LENGTH_SHORT).show();
                     }else {
                         Toast.makeText(itemView.getContext(), response.body().getKETERANGAN(), Toast.LENGTH_SHORT).show();

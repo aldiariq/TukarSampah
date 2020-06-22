@@ -77,13 +77,14 @@ public class tukarpointpenggunaFragment extends Fragment {
                 List<Tukarpointgetpointpengguna> datapoint = response.body().getDatapoint();
                 if (datapoint.size() == 0){
                     Jumlahpoint.setText("Jumlah Point : 0");
+                    getRewardpengguna();
                     Ambilpoint.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            dialog.dismiss();
                             Toast.makeText(getContext(), "POINT TIDAK CUKUP", Toast.LENGTH_SHORT).show();
                         }
                     });
+                    dialog.dismiss();
                 }else {
                     Jumlahpoint.setText("Jumlah Point : " + datapoint.get(0).getJumlah_point());
                     getRewardpengguna();
@@ -120,6 +121,7 @@ public class tukarpointpenggunaFragment extends Fragment {
 
                         }
                     });
+                    dialog.dismiss();
                 }
             }
 
@@ -141,22 +143,30 @@ public class tukarpointpenggunaFragment extends Fragment {
             @Override
             public void onResponse(Call<Responsetukarpointgetrewardpengguna> call, Response<Responsetukarpointgetrewardpengguna> response) {
                 List<Tukarpointgetrewardpengguna> datareward = response.body().getData();
-                for (int i = 0; i < datareward.size(); i++){
-                    String idreward = datareward.get(i).getId_reward();
-                    tempidreward.add(idreward);
-                    String hadiahreward = datareward.get(i).getHadiah_reward();
-                    temphadiahreward.add(hadiahreward);
-                    String pointreward = datareward.get(i).getPoint_reward();
-                    temppointreward.add(pointreward);
+
+                if (datareward.size() == 0){
+                    Toast.makeText(getContext(), "Belum Ada Reward", Toast.LENGTH_SHORT).show();
+                    Ambilpoint.setEnabled(false);
+                }else {
+                    Ambilpoint.setEnabled(true);
+                    for (int i = 0; i < datareward.size(); i++){
+                        String idreward = datareward.get(i).getId_reward();
+                        tempidreward.add(idreward);
+                        String hadiahreward = datareward.get(i).getHadiah_reward();
+                        temphadiahreward.add(hadiahreward);
+                        String pointreward = datareward.get(i).getPoint_reward();
+                        temppointreward.add(pointreward);
+                    }
+
+                    ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>
+                            (getActivity(), android.R.layout.simple_spinner_item, temphadiahreward );
+
+                    dataAdapter.setDropDownViewResource
+                            (android.R.layout.simple_spinner_dropdown_item);
+
+                    Reward.setAdapter(dataAdapter);
+                    dialog.dismiss();
                 }
-
-                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>
-                        (getActivity(), android.R.layout.simple_spinner_item, temphadiahreward );
-
-                dataAdapter.setDropDownViewResource
-                        (android.R.layout.simple_spinner_dropdown_item);
-
-                Reward.setAdapter(dataAdapter);
             }
 
             @Override
@@ -168,7 +178,7 @@ public class tukarpointpenggunaFragment extends Fragment {
                 dialog.dismiss();
             }
         });
-        dialog.dismiss();
+
     }
 
     private boolean cekKoneksi(){

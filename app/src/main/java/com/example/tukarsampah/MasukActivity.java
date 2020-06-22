@@ -121,6 +121,7 @@ public class MasukActivity extends AppCompatActivity {
             if (Koneksi.getActiveNetworkInfo() != null && Koneksi.getActiveNetworkInfo().isAvailable() && Koneksi.getActiveNetworkInfo().isConnected()) {
                 return true;
             } else {
+                Toast.makeText(MasukActivity.this, "Mohon Periksa Koneksi", Toast.LENGTH_SHORT).show();
                 return false;
             }
         }

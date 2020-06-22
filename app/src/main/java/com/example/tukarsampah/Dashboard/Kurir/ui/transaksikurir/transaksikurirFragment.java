@@ -138,7 +138,8 @@ public class transaksikurirFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Responsegettransaksikurir> call, Throwable t) {
-                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Mohon Periksa Koneksi", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
             }
         });
     }
