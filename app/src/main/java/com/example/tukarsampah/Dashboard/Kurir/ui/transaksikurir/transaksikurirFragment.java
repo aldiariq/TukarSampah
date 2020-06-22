@@ -1,5 +1,6 @@
 package com.example.tukarsampah.Dashboard.Kurir.ui.transaksikurir;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -38,6 +39,7 @@ public class transaksikurirFragment extends Fragment {
     private TextView Idtransaksi, Jumlahtransaksi, Tgltransaksi, Namapengguna;
     private Button Terimatransaksi, Teleponpengguna;
     private ConnectivityManager Koneksi;
+    private ProgressDialog dialog;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class transaksikurirFragment extends Fragment {
         Namapengguna = (TextView) view.findViewById(R.id.txtNamapengguna_transaksi_kurir);
         Terimatransaksi = (Button) view.findViewById(R.id.btnTerimatransaksitransaksikurir);
         Teleponpengguna = (Button) view.findViewById(R.id.btnTeleponpenggunatransaksikurir);
+        dialog = new ProgressDialog(view.getContext());
     }
 
     private void kosongkanInputan(){
@@ -65,6 +68,9 @@ public class transaksikurirFragment extends Fragment {
     }
 
     private void getTransaksiKurir(String idkurir){
+        dialog.setMessage("Silahkan Tunggu..");
+        dialog.setCancelable(false);
+        dialog.show();
         Operasikurir operasikurir = Service.Koneksi().create(Operasikurir.class);
         Call<Responsegettransaksikurir> responsegettransaksikurir = operasikurir.getTransaksikurir(idkurir);
         responsegettransaksikurir.enqueue(new Callback<Responsegettransaksikurir>() {
@@ -74,6 +80,7 @@ public class transaksikurirFragment extends Fragment {
                 if (datatransaksi.size() == 0){
                     Terimatransaksi.setEnabled(false);
                     Teleponpengguna.setEnabled(false);
+                    dialog.dismiss();
                 }else {
                     Terimatransaksi.setEnabled(true);
                     Teleponpengguna.setEnabled(true);
@@ -82,10 +89,12 @@ public class transaksikurirFragment extends Fragment {
                     Jumlahtransaksi.setText("Jumlah Transaksi : " + datatransaksi.get(0).getJumlah_transaksi() + "Kg");
                     Tgltransaksi.setText("Tanggal Transaksi : " + datatransaksi.get(0).getTgl_transaksi());
                     Namapengguna.setText("Nama Pengguna : " + datatransaksi.get(0).getUsername_pengguna());
+                    dialog.dismiss();
 
                     Terimatransaksi.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            dialog.show();
                             if (cekKoneksi()){
                                 String IDTRANSAKSI, IDPENGGUNA, JUMLAH_TRANSAKSI;
                                 IDTRANSAKSI = datatransaksi.get(0).getId_transaksi();
@@ -99,15 +108,18 @@ public class transaksikurirFragment extends Fragment {
                                         Toast.makeText(getContext(), response.body().getKETERANGAN(), Toast.LENGTH_SHORT).show();
                                         kosongkanInputan();
                                         getTransaksiKurir(sharedPreferences.getString("ID_AKUN", ""));
+                                        dialog.dismiss();
                                     }
 
                                     @Override
                                     public void onFailure(Call<Responseoperasi> call, Throwable t) {
                                         Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                                        dialog.dismiss();
                                     }
                                 });
                             }else {
                                 Toast.makeText(getContext(), "Mohon Periksa Koneksi", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
                             }
                         }
                     });

@@ -1,5 +1,6 @@
 package com.example.tukarsampah.Dashboard.Pengguna.ui.transaksipengguna;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -50,6 +51,7 @@ public class transaksipenggunaFragment extends Fragment {
     private TextView Idtransaksi, Jumlahtransaksi, Tgltransaksi, Namakurir;
     private Button Bataltransaksi, Teleponkurir;
     private ConnectivityManager Koneksi;
+    private ProgressDialog dialog;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -87,6 +89,7 @@ public class transaksipenggunaFragment extends Fragment {
         Namakurir = (TextView) root.findViewById(R.id.txtNamakurir_transaksi_pengguna);
         Bataltransaksi = (Button) root.findViewById(R.id.btnBataltransaksitransaksipengguna);
         Teleponkurir = (Button) root.findViewById(R.id.btnTeleponkurirtransaksipengguna);
+        dialog = new ProgressDialog(root.getContext());
     }
 
     private void kosongkanInputan(){
@@ -152,6 +155,9 @@ public class transaksipenggunaFragment extends Fragment {
     }
 
     private void getTransaksiPengguna(String idpengguna){
+        dialog.setMessage("Silahkan Tunggu..");
+        dialog.setCancelable(false);
+        dialog.show();
         Operasipengguna operasipengguna = Service.Koneksi().create(Operasipengguna.class);
         Call<Responsegettransaksipengguna> responsegettransaksipengguna = operasipengguna.getTransaksipengguna(idpengguna);
         responsegettransaksipengguna.enqueue(new Callback<Responsegettransaksipengguna>() {
@@ -168,6 +174,7 @@ public class transaksipenggunaFragment extends Fragment {
                     Jumlahtransaksi.setText("Jumlah Transaksi : " + datatransaksi.get(0).getJumlah_transaksi() + "Kg");
                     Tgltransaksi.setText("Tanggal Transaksi : " + datatransaksi.get(0).getTgl_transaksi());
                     Namakurir.setText("Nama Kurir : " + datatransaksi.get(0).getUsername_kurir());
+                    dialog.dismiss();
 
                     Bataltransaksi.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -204,12 +211,14 @@ public class transaksipenggunaFragment extends Fragment {
                     Kurir.setVisibility(View.VISIBLE);
                     Transaksi.setVisibility(View.VISIBLE);
                     setSpinner();
+                    dialog.dismiss();
                 }
             }
 
             @Override
             public void onFailure(Call<Responsegettransaksipengguna> call, Throwable t) {
                 Toast.makeText(getContext(), "GAGAL MENDAPATKAN DATA", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
             }
         });
     }
