@@ -1,5 +1,6 @@
 package com.example.tukarsampah.Dashboard.Pengguna.ui.tukarpointpengguna;
 
+import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
@@ -46,6 +47,7 @@ public class tukarpointpenggunaFragment extends Fragment {
     private List<String> temphadiahreward = new ArrayList<String>();
     private List<String> temppointreward = new ArrayList<String>();
     private ConnectivityManager Koneksi;
+    private ProgressDialog dialog;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -53,7 +55,6 @@ public class tukarpointpenggunaFragment extends Fragment {
         sharedPreferences = getContext().getSharedPreferences("LOGIN", MODE_PRIVATE);
         initView(root);
         getPointpengguna(sharedPreferences.getString("ID_AKUN", ""));
-        getRewardpengguna();
         return root;
     }
 
@@ -61,9 +62,13 @@ public class tukarpointpenggunaFragment extends Fragment {
         Jumlahpoint = (TextView) root.findViewById(R.id.txtJumlahpointtukarpointpengguna);
         Reward = (Spinner) root.findViewById(R.id.spRewardtukarpointpengguna);
         Ambilpoint = (Button) root.findViewById(R.id.btnAmbilhadiahtukarpointpengguna);
+        dialog = new ProgressDialog(root.getContext());
     }
 
     private void getPointpengguna(String idpengguna){
+        dialog.setMessage("Silahkan Tunggu..");
+        dialog.setCancelable(false);
+        dialog.show();
         Operasipengguna operasipengguna = Service.Koneksi().create(Operasipengguna.class);
         Call<Responsetukarpointgetpointpengguna> responsetukarpointgetpointpengguna = operasipengguna.getPointpengguna(idpengguna);
         responsetukarpointgetpointpengguna.enqueue(new Callback<Responsetukarpointgetpointpengguna>() {
@@ -75,11 +80,13 @@ public class tukarpointpenggunaFragment extends Fragment {
                     Ambilpoint.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            dialog.dismiss();
                             Toast.makeText(getContext(), "POINT TIDAK CUKUP", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }else {
                     Jumlahpoint.setText("Jumlah Point : " + datapoint.get(0).getJumlah_point());
+                    getRewardpengguna();
                     Ambilpoint.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -118,7 +125,11 @@ public class tukarpointpenggunaFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Responsetukarpointgetpointpengguna> call, Throwable t) {
-                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "MOHON PERIKSA KONEKSI", Toast.LENGTH_SHORT).show();
+                Jumlahpoint.setVisibility(View.GONE);
+                Reward.setVisibility(View.GONE);
+                Ambilpoint.setVisibility(View.GONE);
+                dialog.dismiss();
             }
         });
     }
@@ -150,9 +161,14 @@ public class tukarpointpenggunaFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Responsetukarpointgetrewardpengguna> call, Throwable t) {
-                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "MOHON PERIKSA KONEKSI", Toast.LENGTH_SHORT).show();
+                Jumlahpoint.setVisibility(View.GONE);
+                Reward.setVisibility(View.GONE);
+                Ambilpoint.setVisibility(View.GONE);
+                dialog.dismiss();
             }
         });
+        dialog.dismiss();
     }
 
     private boolean cekKoneksi(){

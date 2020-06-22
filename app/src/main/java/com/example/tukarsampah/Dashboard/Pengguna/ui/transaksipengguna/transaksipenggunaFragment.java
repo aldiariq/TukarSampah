@@ -217,7 +217,11 @@ public class transaksipenggunaFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Responsegettransaksipengguna> call, Throwable t) {
-                Toast.makeText(getContext(), "GAGAL MENDAPATKAN DATA", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "MOHON PERIKSA KONEKSI", Toast.LENGTH_SHORT).show();
+                Banyaksampah.setVisibility(View.GONE);
+                Kurir.setVisibility(View.GONE);
+                Transaksi.setVisibility(View.GONE);
+                Cardtransaksi.setVisibility(View.GONE);
                 dialog.dismiss();
             }
         });
