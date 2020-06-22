@@ -134,30 +134,35 @@ public class MasukActivity extends AppCompatActivity {
         login.enqueue(new Callback<ResponseMasuk>() {
             @Override
             public void onResponse(Call<ResponseMasuk> call, Response<ResponseMasuk> response) {
-                if (response.body().getSTATUS().equalsIgnoreCase("BERHASIL")){
-                    Toast.makeText(MasukActivity.this, "Log In Berhasil..", Toast.LENGTH_SHORT).show();
-                    sharedPreferencesEditor.putString("STATUS", response.body().getSTATUS());
-                    sharedPreferencesEditor.putString("KETERANGAN", response.body().getKETERANGAN());
-                    sharedPreferencesEditor.putString("ID_AKUN", response.body().getIDAKUN());
-                    sharedPreferencesEditor.putString("USERNAME", response.body().getUSERNAME());
-                    sharedPreferencesEditor.putString("TIPEAKUN", response.body().getTIPEAKUN());
-                    sharedPreferencesEditor.apply();
+                if (response.body() == null){
                     dialog.dismiss();
-                    if (response.body().getTIPEAKUN().equalsIgnoreCase("PENGGUNA")){
-                        Intent pengguna = new Intent(MasukActivity.this, DashboardPenggunaActivity.class);
-                        startActivity(pengguna);
-                    }else if (response.body().getTIPEAKUN().equalsIgnoreCase("KURIR")){
-                        Intent kurir = new Intent(MasukActivity.this, DashboardKurirActivity.class);
-                        startActivity(kurir);
-                    }else if (response.body().getTIPEAKUN().equalsIgnoreCase("ADMIN")){
-                        Intent admin = new Intent(MasukActivity.this, DashboardAdminActivity.class);
-                        startActivity(admin);
-                    }
-                    finish();
-                }else {
                     Toast.makeText(MasukActivity.this, "Mohon Periksa Username atau Password", Toast.LENGTH_SHORT).show();
-                    kosongkanInput();
-                    dialog.dismiss();
+                }else {
+                    if (response.body().getSTATUS().equalsIgnoreCase("BERHASIL")){
+                        Toast.makeText(MasukActivity.this, "Log In Berhasil..", Toast.LENGTH_SHORT).show();
+                        sharedPreferencesEditor.putString("STATUS", response.body().getSTATUS());
+                        sharedPreferencesEditor.putString("KETERANGAN", response.body().getKETERANGAN());
+                        sharedPreferencesEditor.putString("ID_AKUN", response.body().getIDAKUN());
+                        sharedPreferencesEditor.putString("USERNAME", response.body().getUSERNAME());
+                        sharedPreferencesEditor.putString("TIPEAKUN", response.body().getTIPEAKUN());
+                        sharedPreferencesEditor.apply();
+                        dialog.dismiss();
+                        if (response.body().getTIPEAKUN().equalsIgnoreCase("PENGGUNA")){
+                            Intent pengguna = new Intent(MasukActivity.this, DashboardPenggunaActivity.class);
+                            startActivity(pengguna);
+                        }else if (response.body().getTIPEAKUN().equalsIgnoreCase("KURIR")){
+                            Intent kurir = new Intent(MasukActivity.this, DashboardKurirActivity.class);
+                            startActivity(kurir);
+                        }else if (response.body().getTIPEAKUN().equalsIgnoreCase("ADMIN")){
+                            Intent admin = new Intent(MasukActivity.this, DashboardAdminActivity.class);
+                            startActivity(admin);
+                        }
+                        finish();
+                    }else {
+                        Toast.makeText(MasukActivity.this, "Mohon Periksa Username atau Password", Toast.LENGTH_SHORT).show();
+                        kosongkanInput();
+                        dialog.dismiss();
+                    }
                 }
             }
 
