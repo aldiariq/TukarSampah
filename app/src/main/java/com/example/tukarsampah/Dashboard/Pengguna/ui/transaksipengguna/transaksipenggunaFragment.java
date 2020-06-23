@@ -116,6 +116,7 @@ public class transaksipenggunaFragment extends Fragment {
                 if (datakurir.size() == 0){
                     Toast.makeText(getContext(), "Belum Ada Kurir", Toast.LENGTH_SHORT).show();
                     Transaksi.setEnabled(false);
+                    dialog.dismiss();
                 }else {
                     Transaksi.setEnabled(true);
                     for (int i = 0; i < datakurir.size(); i++){
@@ -132,6 +133,7 @@ public class transaksipenggunaFragment extends Fragment {
                             (android.R.layout.simple_spinner_dropdown_item);
 
                     Kurir.setAdapter(dataAdapter);
+                    dialog.dismiss();
                 }
             }
 
@@ -221,7 +223,6 @@ public class transaksipenggunaFragment extends Fragment {
                     Kurir.setVisibility(View.VISIBLE);
                     Transaksi.setVisibility(View.VISIBLE);
                     setSpinner();
-                    dialog.dismiss();
                 }
             }
 

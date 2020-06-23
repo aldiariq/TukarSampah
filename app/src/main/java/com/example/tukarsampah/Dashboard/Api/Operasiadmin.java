@@ -9,7 +9,6 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public interface Operasiadmin {
@@ -39,7 +38,7 @@ public interface Operasiadmin {
     Call<Responsekelolakuriradmin> getDatakurir();
 
     @GET("getreward")
-    @Headers("User-Agent: PostmanRuntime/7.25.0")
+//    @Headers("User-Agent: PostmanRuntime/7.25.0")
     Call<Responsekelolarewardadmin> getDatareward();
 
     @FormUrlEncoded
