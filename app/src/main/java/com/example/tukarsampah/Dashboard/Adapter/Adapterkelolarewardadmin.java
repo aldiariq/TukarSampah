@@ -71,6 +71,7 @@ public class Adapterkelolarewardadmin extends RecyclerView.Adapter<Adapterkelola
                 @Override
                 public void onClick(View v) {
                     IdReward = tvId.getText().toString().trim();
+                    Toast.makeText(itemView.getContext(), IdReward, Toast.LENGTH_SHORT).show();
                     AlertDialog.Builder dialogPesan = new AlertDialog.Builder(itemView.getContext());
                     dialogPesan.setCancelable(true);
                     dialogPesan.setTitle("Pilih Operasi");
@@ -123,4 +124,5 @@ public class Adapterkelolarewardadmin extends RecyclerView.Adapter<Adapterkelola
             });
         }
     }
+
 }

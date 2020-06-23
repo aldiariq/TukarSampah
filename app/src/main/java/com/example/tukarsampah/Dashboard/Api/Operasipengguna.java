@@ -15,9 +15,11 @@ import retrofit2.http.POST;
 public interface Operasipengguna {
 
     @GET("getkurir")
+//    @Headers("Host: com.example.tukarsampah")
     Call<Responsetransaksigetkurirpengguna> getDatakurir();
 
     @FormUrlEncoded
+//    @Headers("Host: com.example.tukarsampah")
     @POST("ubahpassword")
     Call<Responseoperasi> ubahPassword(
             @Field("username") String username,
@@ -27,6 +29,7 @@ public interface Operasipengguna {
     );
 
     @FormUrlEncoded
+//    @Headers("Host: com.example.tukarsampah")
     @POST("transaksi")
     Call<Responseoperasi> Transaksi(
             @Field("id_pengguna") String idpengguna,
@@ -35,27 +38,32 @@ public interface Operasipengguna {
     );
 
     @FormUrlEncoded
+//    @Headers("Host: com.example.tukarsampah")
     @POST("gettransaksipengguna")
     Call<Responsegettransaksipengguna> getTransaksipengguna(
             @Field("id_pengguna") String idpengguna
     );
 
     @FormUrlEncoded
+//    @Headers("Host: com.example.tukarsampah")
     @POST("bataltransaksi")
     Call<Responseoperasi> Bataltransaksipengguna(
             @Field("id_transaksi") String idtransaksi
     );
 
     @FormUrlEncoded
+//    @Headers("Host: com.example.tukarsampah")
     @POST("ambilpoint")
     Call<Responsetukarpointgetpointpengguna> getPointpengguna(
             @Field("id_pengguna") String idpengguna
     );
 
+//    @Headers("Host: com.example.tukarsampah")
     @GET("getreward")
     Call<Responsetukarpointgetrewardpengguna> getDatareward();
 
     @FormUrlEncoded
+//    @Headers("Host: com.example.tukarsampah")
     @POST("tukarpoint")
     Call<Responseoperasi> Tukarpoint(
             @Field("id_pengguna") String idpengguna,

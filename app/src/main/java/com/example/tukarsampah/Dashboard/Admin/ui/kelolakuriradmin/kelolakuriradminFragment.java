@@ -49,10 +49,14 @@ public class kelolakuriradminFragment extends Fragment {
         tampilData.enqueue(new Callback<Responsekelolakuriradmin>() {
             @Override
             public void onResponse(Call<Responsekelolakuriradmin> call, Response<Responsekelolakuriradmin> response) {
-                listKurir = response.body().getData();
-                adKelolakurir = new Adapterkelolakuriradmin(getContext(), listKurir);
-                rvKelolakurir.setAdapter(adKelolakurir);
-                adKelolakurir.notifyDataSetChanged();
+                try {
+                    listKurir = response.body().getData();
+                    adKelolakurir = new Adapterkelolakuriradmin(getContext(), listKurir);
+                    rvKelolakurir.setAdapter(adKelolakurir);
+                    adKelolakurir.notifyDataSetChanged();
+                }catch (Exception e){
+                    Toast.makeText(getActivity(), "Data Kurir Tidak Ada", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override

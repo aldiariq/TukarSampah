@@ -9,15 +9,18 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public interface Operasiadmin {
 
     @GET("getpengguna")
+//    @Headers("Host: com.example.tukarsampah")
     Call<Responsekelolapenggunaadmin> getDatapengguna();
 
     @FormUrlEncoded
     @POST("deleteakun")
+//    @Headers("Host: com.example.tukarsampah")
     Call<Responseoperasi> deletePengguna(
             @Field("username") String username,
             @Field("tipeakun") String tipeakun
@@ -25,15 +28,18 @@ public interface Operasiadmin {
 
     @FormUrlEncoded
     @POST("resetpassakun")
+//    @Headers("Host: com.example.tukarsampah")
     Call<Responseoperasi> resetpassPengguna(
             @Field("username") String username,
             @Field("tipeakun") String tipeakun
     );
 
     @GET("getkurir")
+//    @Headers("Host: com.example.tukarsampah")
     Call<Responsekelolakuriradmin> getDatakurir();
 
     @GET("getreward")
+    @Headers("User-Agent: PostmanRuntime/7.25.0")
     Call<Responsekelolarewardadmin> getDatareward();
 
     @FormUrlEncoded
@@ -44,6 +50,7 @@ public interface Operasiadmin {
 
     @FormUrlEncoded
     @POST("setreward")
+//    @Headers("Host: com.example.tukarsampah")
     Call<Responseoperasi> setReward(
             @Field("hadiah_reward") String hadiahreward,
             @Field("point_reward") String pointreward
@@ -51,6 +58,7 @@ public interface Operasiadmin {
 
     @FormUrlEncoded
     @POST("ubahpassword")
+//    @Headers("Host: com.example.tukarsampah")
     Call<Responseoperasi> ubahPassword(
             @Field("username") String username,
             @Field("passwordlama") String passwordlama,

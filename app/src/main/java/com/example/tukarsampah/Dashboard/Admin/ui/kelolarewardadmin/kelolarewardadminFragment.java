@@ -1,5 +1,7 @@
 package com.example.tukarsampah.Dashboard.Admin.ui.kelolarewardadmin;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
@@ -10,7 +12,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,16 +38,19 @@ public class kelolarewardadminFragment extends Fragment {
     private RecyclerView.Adapter adKelolareward;
     private RecyclerView.LayoutManager lmKelolareward;
     private List<Kelolarewardadmin> listReward = new ArrayList<>();
-    private FloatingActionButton fabReward;
+    private FloatingActionButton fabReward, fabResetreward;
     private ConnectivityManager Koneksi;
+    private ProgressDialog dialog;
     private View root2;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.kelolareward_admin_fragment, container, false);
         root2 = root;
+        dialog = new ProgressDialog(root.getContext());
         ambilDatareward(root2);
         fabReward = (FloatingActionButton) root.findViewById(R.id.fabkelolarewardadmin);
+        fabResetreward = (FloatingActionButton) root.findViewById(R.id.fabresetkelolarewardadmin);
         fabReward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,10 +86,20 @@ public class kelolarewardadminFragment extends Fragment {
                 dialogPesan.show();
             }
         });
+        fabResetreward.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listReward.clear();
+                ambilDatareward(root2);
+            }
+        });
         return root;
     }
 
     private void ambilDatareward(View root){
+        dialog.setMessage("Silahkan Tunggu..");
+        dialog.setCancelable(false);
+        dialog.show();
         rvKelolareward = (RecyclerView) root.findViewById(R.id.rvkelolarewardadmin);
         lmKelolareward = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         rvKelolareward.setLayoutManager(lmKelolareward);
@@ -96,15 +110,21 @@ public class kelolarewardadminFragment extends Fragment {
         tampilData.enqueue(new Callback<Responsekelolarewardadmin>() {
             @Override
             public void onResponse(Call<Responsekelolarewardadmin> call, Response<Responsekelolarewardadmin> response) {
-                listReward = response.body().getData();
-                adKelolareward = new Adapterkelolarewardadmin(getContext(), listReward);
-                rvKelolareward.setAdapter(adKelolareward);
-                adKelolareward.notifyDataSetChanged();
+                try {
+                    listReward = response.body().getData();
+                    adKelolareward = new Adapterkelolarewardadmin(getContext(), listReward);
+                    rvKelolareward.setAdapter(adKelolareward);
+                    adKelolareward.notifyDataSetChanged();
+                }catch (Exception e){
+                    Toast.makeText(getActivity(), "Data Reward Tidak Ada", Toast.LENGTH_SHORT).show();
+                }
+                dialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<Responsekelolarewardadmin> call, Throwable t) {
                 Toast.makeText(getActivity(), "Gagal Mendapatkan Data", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
             }
         });
     }
@@ -117,16 +137,23 @@ public class kelolarewardadminFragment extends Fragment {
             @Override
             public void onResponse(Call<Responseoperasi> call, Response<Responseoperasi> response) {
                 if (response.body().getSTATUS().equalsIgnoreCase("BERHASIL")){
+                    dialog.setMessage("Silahkan Tunggu..");
+                    dialog.setCancelable(false);
+                    dialog.show();
+                    listReward.clear();
                     ambilDatareward(root2);
+                    dialog.dismiss();
                     Toast.makeText(itemView.getContext(), response.body().getKETERANGAN(), Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(itemView.getContext(), response.body().getKETERANGAN(), Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
                 }
             }
 
             @Override
             public void onFailure(Call<Responseoperasi> call, Throwable t) {
                 Toast.makeText(getActivity(), "Gagal Menambahkan Reward", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
             }
         });
     }

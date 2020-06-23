@@ -11,12 +11,14 @@ import retrofit2.http.POST;
 public interface Operasikurir {
 
     @FormUrlEncoded
+//    @Headers("Host: com.example.tukarsampah")
     @POST("gettransaksikurir")
     Call<Responsegettransaksikurir> getTransaksikurir(
             @Field("id_kurir") String idkurir
     );
 
     @FormUrlEncoded
+//    @Headers("Host: com.example.tukarsampah")
     @POST("suksestransaksi")
     Call<Responseoperasi> Terimatransaksi(
             @Field("id_transaksi") String idtransaksi,
@@ -25,6 +27,7 @@ public interface Operasikurir {
     );
 
     @FormUrlEncoded
+//    @Headers("Host: com.example.tukarsampah")
     @POST("ubahpassword")
     Call<Responseoperasi> ubahPassword(
             @Field("username") String username,

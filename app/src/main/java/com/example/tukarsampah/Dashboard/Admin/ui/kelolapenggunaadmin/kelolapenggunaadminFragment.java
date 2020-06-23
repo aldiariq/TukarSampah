@@ -52,10 +52,14 @@ public class kelolapenggunaadminFragment extends Fragment {
         tampilData.enqueue(new Callback<Responsekelolapenggunaadmin>() {
             @Override
             public void onResponse(Call<Responsekelolapenggunaadmin> call, Response<Responsekelolapenggunaadmin> response) {
-                listPengguna = response.body().getData();
-                adKelolapengguna = new Adapterkelolapenggunaadmin(getContext(), listPengguna);
-                rvKelolapengguna.setAdapter(adKelolapengguna);
-                adKelolapengguna.notifyDataSetChanged();
+                try {
+                    listPengguna = response.body().getData();
+                    adKelolapengguna = new Adapterkelolapenggunaadmin(getContext(), listPengguna);
+                    rvKelolapengguna.setAdapter(adKelolapengguna);
+                    adKelolapengguna.notifyDataSetChanged();
+                }catch (Exception e){
+                    Toast.makeText(getActivity(), "Data Pengguna Tidak Ada", Toast.LENGTH_SHORT).show();
+                };
             }
 
             @Override

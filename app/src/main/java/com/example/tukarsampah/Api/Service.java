@@ -4,7 +4,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Service {
-    static final String BASE_URL = "http://apitukarsampah.atwebpages.com/tukarsampah/";
+    static final String BASE_URL = "http://192.168.100.20/tukarsampah/";
     private static Retrofit retrofit;
 
     public static Retrofit Koneksi(){
