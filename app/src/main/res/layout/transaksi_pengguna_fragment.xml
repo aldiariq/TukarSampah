@@ -119,6 +119,16 @@
                 android:inputType="text"
                 android:textSize="20sp"></TextView>
 
+            <TextView
+                android:id="@+id/txtAlamatkurir_transaksi_pengguna"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:ems="10"
+                android:hint="Alamat Kurir"
+                android:inputType="text"
+                android:textSize="20sp"></TextView>
+
             <Button
                 android:id="@+id/btnBataltransaksitransaksipengguna"
                 android:layout_width="match_parent"

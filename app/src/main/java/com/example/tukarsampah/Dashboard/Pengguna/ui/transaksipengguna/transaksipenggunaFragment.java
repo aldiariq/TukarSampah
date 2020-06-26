@@ -48,7 +48,7 @@ public class transaksipenggunaFragment extends Fragment {
     private List<String> tempusernamekurir = new ArrayList<String>();
     private SharedPreferences sharedPreferences;
     private CardView Cardtransaksi;
-    private TextView Idtransaksi, Jumlahtransaksi, Tgltransaksi, Namakurir;
+    private TextView Idtransaksi, Jumlahtransaksi, Tgltransaksi, Namakurir, Alamatkurir;
     private Button Bataltransaksi, Teleponkurir;
     private ConnectivityManager Koneksi;
     private ProgressDialog dialog;
@@ -91,6 +91,7 @@ public class transaksipenggunaFragment extends Fragment {
         Jumlahtransaksi = (TextView) root.findViewById(R.id.txtJumlah_transaksi_pengguna);
         Tgltransaksi = (TextView) root.findViewById(R.id.txtTgl_transaksi_pengguna);
         Namakurir = (TextView) root.findViewById(R.id.txtNamakurir_transaksi_pengguna);
+        Alamatkurir = (TextView) root.findViewById(R.id.txtAlamatkurir_transaksi_pengguna);
         Bataltransaksi = (Button) root.findViewById(R.id.btnBataltransaksitransaksipengguna);
         Teleponkurir = (Button) root.findViewById(R.id.btnTeleponkurirtransaksipengguna);
         dialog = new ProgressDialog(root.getContext());
@@ -103,6 +104,7 @@ public class transaksipenggunaFragment extends Fragment {
         Jumlahtransaksi.setText("Jumlah Transaksi : ");
         Tgltransaksi.setText("Tanggal Transaksi : ");
         Namakurir.setText("Nama Kurir : ");
+        Alamatkurir.setText("Alamat Kurir : ");
     }
 
     private void setSpinner(){
@@ -186,6 +188,7 @@ public class transaksipenggunaFragment extends Fragment {
                     Jumlahtransaksi.setText("Jumlah Transaksi : " + datatransaksi.get(0).getJumlah_transaksi() + "Kg");
                     Tgltransaksi.setText("Tanggal Transaksi : " + datatransaksi.get(0).getTgl_transaksi());
                     Namakurir.setText("Nama Kurir : " + datatransaksi.get(0).getUsername_kurir());
+                    Alamatkurir.setText("Alamat Kurir : " + datatransaksi.get(0).getAlamat_kurir());
                     dialog.dismiss();
 
                     Bataltransaksi.setOnClickListener(new View.OnClickListener() {

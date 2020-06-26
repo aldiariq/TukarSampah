@@ -26,6 +26,7 @@ public interface Operasi {
             @Field("username") String Username,
             @Field("password") String Password,
             @Field("tipeakun") String Tipeakun,
-            @Field("nohp") String Nohp
+            @Field("nohp") String Nohp,
+            @Field("alamat") String Alamat
     );
 }

@@ -23,7 +23,7 @@ import retrofit2.Response;
 
 public class DaftarActivity extends AppCompatActivity {
 
-    private EditText Username, Password, Password2, NoHp;
+    private EditText Username, Password, Password2, NoHp, Alamat;
     private Spinner Tipeakun;
     private Button Register;
     private TextView Login;
@@ -41,20 +41,21 @@ public class DaftarActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (cekKoneksi()){
-                    String strUsername, strPassword, strPassword2, strTipeakun, strNohp;
+                    String strUsername, strPassword, strPassword2, strTipeakun, strNohp, strAlamat;
                     strUsername = (String) Username.getText().toString().trim();
                     strPassword = (String) Password.getText().toString().trim();
                     strPassword2 = (String) Password2.getText().toString().trim();
                     strNohp = (String) NoHp.getText().toString().trim();
+                    strAlamat = (String) Alamat.getText().toString().trim();
                     strTipeakun = (String) Tipeakun.getSelectedItem().toString().trim();
 
-                    if (strUsername.equalsIgnoreCase("") || strPassword.equalsIgnoreCase("") || strPassword2.equalsIgnoreCase("") || strNohp.equalsIgnoreCase("") || strTipeakun.equalsIgnoreCase("")){
+                    if (strUsername.equalsIgnoreCase("") || strPassword.equalsIgnoreCase("") || strPassword2.equalsIgnoreCase("") || strNohp.equalsIgnoreCase("") || strAlamat.equalsIgnoreCase("") || strTipeakun.equalsIgnoreCase("")){
                         Toast.makeText(DaftarActivity.this, "Mohon Lengkapi Form", Toast.LENGTH_SHORT).show();
                     }else {
                         if (!strPassword.equals(strPassword2)){
                             Toast.makeText(DaftarActivity.this, "Password Tidak Sama", Toast.LENGTH_SHORT).show();
                         }else {
-                            prosesRegister(strUsername, strPassword, strTipeakun, strNohp);
+                            prosesRegister(strUsername, strPassword, strTipeakun, strNohp, strAlamat);
                         }
                     }
                 }else {
@@ -77,6 +78,7 @@ public class DaftarActivity extends AppCompatActivity {
         Password = (EditText) findViewById(R.id.etPasswordDaftar);
         Password2 = (EditText) findViewById(R.id.etPassword2Daftar);
         NoHp = (EditText) findViewById(R.id.etNohpdaftar);
+        Alamat = (EditText) findViewById(R.id.etAlamatdaftar);
         Tipeakun = (Spinner) findViewById(R.id.spTipeakunDaftar);
         Register = (Button) findViewById(R.id.btnRegisDaftar);
         Login = (TextView) findViewById(R.id.txtLoginDaftar);
@@ -94,11 +96,11 @@ public class DaftarActivity extends AppCompatActivity {
         }
     }
 
-    private void prosesRegister(String Username, String Password, String Tipeakun, String Nohp){
+    private void prosesRegister(String Username, String Password, String Tipeakun, String Nohp, String Alamat){
         dialog.setMessage("Silahkan Tunggu..");
         dialog.show();
         Operasi operasi = Service.Koneksi().create(Operasi.class);
-        Call<ResponseDaftar> daftar = operasi.Daftar(Username, Password, Tipeakun, Nohp);
+        Call<ResponseDaftar> daftar = operasi.Daftar(Username, Password, Tipeakun, Nohp, Alamat);
         daftar.enqueue(new Callback<ResponseDaftar>() {
             @Override
             public void onResponse(Call<ResponseDaftar> call, Response<ResponseDaftar> response) {
