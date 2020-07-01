@@ -11,7 +11,6 @@ import retrofit2.http.POST;
 public interface Operasi {
 
     @FormUrlEncoded
-//    @Headers("Host: com.example.tukarsampah")
     @POST("masuk")
     Call<ResponseMasuk> Masuk(
             @Field("username") String Username,
@@ -20,7 +19,6 @@ public interface Operasi {
     );
 
     @FormUrlEncoded
-//    @Headers("Host: com.example.tukarsampah")
     @POST("daftar")
     Call<ResponseDaftar> Daftar(
             @Field("username") String Username,
