@@ -15,12 +15,12 @@ import retrofit2.http.POST;
 public interface Operasiadmin {
 
     @GET("getpengguna")
-//    @Headers("Host: com.example.tukarsampah")
+    @Headers("Accept: */*")
     Call<Responsekelolapenggunaadmin> getDatapengguna();
 
     @FormUrlEncoded
     @POST("deleteakun")
-//    @Headers("Host: com.example.tukarsampah")
+    @Headers("Accept: */*")
     Call<Responseoperasi> deletePengguna(
             @Field("username") String username,
             @Field("tipeakun") String tipeakun
@@ -28,14 +28,14 @@ public interface Operasiadmin {
 
     @FormUrlEncoded
     @POST("resetpassakun")
-//    @Headers("Host: com.example.tukarsampah")
+    @Headers("Accept: */*")
     Call<Responseoperasi> resetpassPengguna(
             @Field("username") String username,
             @Field("tipeakun") String tipeakun
     );
 
     @GET("getkurir")
-//    @Headers("Host: com.example.tukarsampah")
+    @Headers("Accept: */*")
     Call<Responsekelolakuriradmin> getDatakurir();
 
     @GET("getreward")
@@ -57,7 +57,7 @@ public interface Operasiadmin {
 
     @FormUrlEncoded
     @POST("ubahpassword")
-//    @Headers("Host: com.example.tukarsampah")
+    @Headers("Accept: */*")
     Call<Responseoperasi> ubahPassword(
             @Field("username") String username,
             @Field("passwordlama") String passwordlama,
