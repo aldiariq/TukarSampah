@@ -127,6 +127,7 @@ public class kelolarewardadminFragment extends Fragment {
                 dialog.dismiss();
             }
         });
+
     }
 
     private void tambahDatareward(String hadiah, String point, View itemView){

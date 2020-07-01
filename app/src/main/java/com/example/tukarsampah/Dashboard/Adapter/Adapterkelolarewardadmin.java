@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.tukarsampah.Api.Service;
 import com.example.tukarsampah.Dashboard.Api.Operasiadmin;
 import com.example.tukarsampah.Dashboard.Model.Kelolarewardadmin;
+import com.example.tukarsampah.Dashboard.Model.Responsekelolarewardadmin;
 import com.example.tukarsampah.Dashboard.Model.Responseoperasi;
 import com.example.tukarsampah.MasukActivity;
 import com.example.tukarsampah.R;
@@ -109,8 +110,8 @@ public class Adapterkelolarewardadmin extends RecyclerView.Adapter<Adapterkelola
                     if (response.body().getSTATUS().equalsIgnoreCase("BERHASIL")){
                         listReward.remove(getPosition());
                         notifyItemRemoved(getPosition());
-
                         Toast.makeText(itemView.getContext(), response.body().getKETERANGAN(), Toast.LENGTH_SHORT).show();
+                        Call<Responsekelolarewardadmin> tampilData = operasiadmin.getDatareward();
                     }else {
                         Toast.makeText(itemView.getContext(), response.body().getKETERANGAN(), Toast.LENGTH_SHORT).show();
                     }
