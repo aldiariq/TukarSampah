@@ -50,7 +50,7 @@ public class transaksipenggunaFragment extends Fragment {
     private List<String> tempusernamekurir = new ArrayList<String>();
     private SharedPreferences sharedPreferences;
     private CardView Cardtransaksi;
-    private TextView Idtransaksi, Jumlahtransaksi, Tgltransaksi, Namakurir, Alamatkurir;
+    private TextView Idtransaksi, Tpsampah, Jumlahtransaksi, Tgltransaksi, Namakurir, Alamatkurir;
     private Button Bataltransaksi, Teleponkurir;
     private ConnectivityManager Koneksi;
     private ProgressDialog dialog;
@@ -90,6 +90,7 @@ public class transaksipenggunaFragment extends Fragment {
         Transaksi = (Button) root.findViewById(R.id.btnTransaksitransaksipengguna);
         Cardtransaksi = (CardView) root.findViewById(R.id.card_datatransaksi_pengguna);
         Idtransaksi = (TextView) root.findViewById(R.id.txtIdtransaksi_transaksi_pengguna);
+        Tpsampah = (TextView) root.findViewById(R.id.txtTipesampah_transaksi_pengguna);
         Jumlahtransaksi = (TextView) root.findViewById(R.id.txtJumlah_transaksi_pengguna);
         Tgltransaksi = (TextView) root.findViewById(R.id.txtTgl_transaksi_pengguna);
         Namakurir = (TextView) root.findViewById(R.id.txtNamakurir_transaksi_pengguna);
@@ -104,6 +105,7 @@ public class transaksipenggunaFragment extends Fragment {
         Tipesampah.setSelection(0);
         Kurir.setSelection(0);
         Idtransaksi.setText("Id Transaksi : ");
+        Tpsampah.setText("Tipe Sampah : ");
         Jumlahtransaksi.setText("Jumlah Transaksi : ");
         Tgltransaksi.setText("Tanggal Transaksi : ");
         Namakurir.setText("Nama Kurir : ");
@@ -244,6 +246,7 @@ public class transaksipenggunaFragment extends Fragment {
 
                     Idtransaksi.setText("Id Transaksi : " + datatransaksi.get(0).getId_transaksi());
                     Jumlahtransaksi.setText("Jumlah Transaksi : " + datatransaksi.get(0).getJumlah_transaksi() + "Kg");
+                    Tpsampah.setText("Tipe Sampah : " + datatransaksi.get(0).getTipe_sampah());
                     Tgltransaksi.setText("Tanggal Transaksi : " + datatransaksi.get(0).getTgl_transaksi());
                     Namakurir.setText("Nama Kurir : " + datatransaksi.get(0).getUsername_kurir());
                     Alamatkurir.setText("Alamat Kurir : " + datatransaksi.get(0).getAlamat_kurir());

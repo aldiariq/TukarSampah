@@ -102,6 +102,16 @@
                 android:textSize="20sp"></TextView>
 
             <TextView
+                android:id="@+id/txtTipesampah_transaksi_pengguna"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:ems="10"
+                android:hint="Tipe Sampah"
+                android:inputType="text"
+                android:textSize="20sp"></TextView>
+
+            <TextView
                 android:id="@+id/txtJumlah_transaksi_pengguna"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
