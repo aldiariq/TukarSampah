@@ -1,6 +1,7 @@
 package com.example.tukarsampah.Dashboard.Pengguna.ui.transaksipengguna;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
@@ -58,9 +60,7 @@ public class transaksipenggunaFragment extends Fragment {
         View root = inflater.inflate(R.layout.transaksi_pengguna_fragment, container, false);
         initView(root);
         sharedPreferences = getContext().getSharedPreferences("LOGIN", MODE_PRIVATE);
-
-        getTransaksiPengguna(sharedPreferences.getString("ID_AKUN", ""));
-
+        getTransaksiPengguna(sharedPreferences.getString("ID_AKUN", ""), root);
         Transaksi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -155,7 +155,7 @@ public class transaksipenggunaFragment extends Fragment {
                 if (response.body().getSTATUS().equalsIgnoreCase("BERHASIL")){
                     Toast.makeText(root.getContext(), response.body().getKETERANGAN(), Toast.LENGTH_SHORT).show();
                     kosongkanInputan();
-                    getTransaksiPengguna(sharedPreferences.getString("ID_AKUN", ""));
+                    getTransaksiPengguna(sharedPreferences.getString("ID_AKUN", ""), root);
                 }else {
                     Toast.makeText(root.getContext(), response.body().getKETERANGAN(), Toast.LENGTH_SHORT).show();
                 }
@@ -168,7 +168,61 @@ public class transaksipenggunaFragment extends Fragment {
         });
     }
 
-    private void getTransaksiPengguna(String idpengguna){
+    private void cekBerlangganan(String idpengguna, View root){
+        Operasipengguna operasipengguna = Service.Koneksi().create(Operasipengguna.class);
+        Call<Responseoperasi> responsegetberlanggananpengguna = operasipengguna.getBerlanggananpengguna(idpengguna);
+        responsegetberlanggananpengguna.enqueue(new Callback<Responseoperasi>() {
+            @Override
+            public void onResponse(Call<Responseoperasi> call, Response<Responseoperasi> response) {
+                if (response.body().getSTATUS().equalsIgnoreCase("BERHASIL")){
+                    if (response.body().getKETERANGAN().equalsIgnoreCase("TIDAK")){
+                        Transaksi.setEnabled(false);
+                        AlertDialog.Builder dialogPesan = new AlertDialog.Builder(root.getContext());
+                        dialogPesan.setCancelable(true);
+                        dialogPesan.setTitle("Anda Belum Berlangganan");
+                        dialogPesan.setMessage("Silahkan Tekan Tombol Berlangganan!");
+                        dialogPesan.setPositiveButton("Berlangganan", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (cekKoneksi()){
+                                    Call<Responseoperasi> responsesetberlanggananpengguna = operasipengguna.setBerlanggananpengguna(idpengguna);
+                                    responsesetberlanggananpengguna.enqueue(new Callback<Responseoperasi>() {
+                                        @Override
+                                        public void onResponse(Call<Responseoperasi> call, Response<Responseoperasi> response) {
+                                            if (response.body().getSTATUS().equalsIgnoreCase("BERHASIL")){
+                                                Toast.makeText(root.getContext(), "BERHASIL BERLANGGANAN", Toast.LENGTH_SHORT).show();
+                                                Transaksi.setEnabled(true);
+                                            }else {
+                                                Toast.makeText(root.getContext(), response.message(), Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<Responseoperasi> call, Throwable t) {
+
+                                        }
+                                    });
+                                }else {
+                                    Toast.makeText(root.getContext(), "Mohon Periksa Koneksi", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                        dialogPesan.show();
+                    }else {
+                    }
+                }else {
+                    Toast.makeText(root.getContext(), response.message(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Responseoperasi> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void getTransaksiPengguna(String idpengguna, View root){
         dialog.setMessage("Silahkan Tunggu..");
         dialog.setCancelable(false);
         dialog.show();
@@ -201,7 +255,7 @@ public class transaksipenggunaFragment extends Fragment {
                                     kosongkanInputan();
                                     tempidkurir.clear();
                                     tempusernamekurir.clear();
-                                    getTransaksiPengguna(sharedPreferences.getString("ID_AKUN", ""));
+                                    getTransaksiPengguna(sharedPreferences.getString("ID_AKUN", ""), root);
                                 }
 
                                 @Override
@@ -226,6 +280,7 @@ public class transaksipenggunaFragment extends Fragment {
                     Kurir.setVisibility(View.VISIBLE);
                     Transaksi.setVisibility(View.VISIBLE);
                     setSpinner();
+                    cekBerlangganan(sharedPreferences.getString("ID_AKUN", ""), root);
                 }
             }
 
@@ -251,4 +306,6 @@ public class transaksipenggunaFragment extends Fragment {
             }
         }
     }
+
+
 }

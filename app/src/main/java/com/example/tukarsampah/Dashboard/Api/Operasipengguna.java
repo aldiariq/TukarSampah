@@ -72,4 +72,18 @@ public interface Operasipengguna {
             @Field("id_reward") String idreward
     );
 
+    @FormUrlEncoded
+//    @Headers("Host: com.example.tukarsampah")
+    @POST("getberlanggananpengguna")
+    Call<Responseoperasi> getBerlanggananpengguna(
+            @Field("id_pengguna") String idpengguna
+    );
+
+    @FormUrlEncoded
+//    @Headers("Host: com.example.tukarsampah")
+    @POST("setberlanggananpengguna")
+    Call<Responseoperasi> setBerlanggananpengguna(
+            @Field("id_pengguna") String idpengguna
+    );
+
 }
