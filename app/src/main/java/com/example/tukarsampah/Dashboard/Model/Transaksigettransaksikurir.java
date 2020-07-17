@@ -1,7 +1,7 @@
 package com.example.tukarsampah.Dashboard.Model;
 
 public class Transaksigettransaksikurir {
-    private String username_kurir, username_pengguna, nohp_pengguna, alamat_pengguna, id_transaksi, id_pengguna, id_kurir, jumlah_transaksi, tgl_transaksi, status_transaksi;
+    private String username_kurir, username_pengguna, nohp_pengguna, alamat_pengguna, id_transaksi, tipe_sampah, id_pengguna, id_kurir, jumlah_transaksi, tgl_transaksi, status_transaksi;
 
     public String getUsername_kurir() {
         return username_kurir;
@@ -41,6 +41,14 @@ public class Transaksigettransaksikurir {
 
     public void setId_transaksi(String id_transaksi) {
         this.id_transaksi = id_transaksi;
+    }
+
+    public String getTipe_sampah() {
+        return tipe_sampah;
+    }
+
+    public void setTipe_sampah(String tipe_sampah) {
+        this.tipe_sampah = tipe_sampah;
     }
 
     public String getId_pengguna() {

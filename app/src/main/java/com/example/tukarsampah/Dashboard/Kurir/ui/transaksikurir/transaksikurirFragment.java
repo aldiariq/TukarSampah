@@ -36,7 +36,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class transaksikurirFragment extends Fragment {
 
     private SharedPreferences sharedPreferences;
-    private TextView Idtransaksi, Jumlahtransaksi, Tgltransaksi, Namapengguna, Alamatpengguna;
+    private TextView Idtransaksi, Tipesampah, Jumlahtransaksi, Tgltransaksi, Namapengguna, Alamatpengguna;
     private Button Terimatransaksi, Teleponpengguna;
     private ConnectivityManager Koneksi;
     private ProgressDialog dialog;
@@ -52,6 +52,7 @@ public class transaksikurirFragment extends Fragment {
 
     private void initView(View view){
         Idtransaksi = (TextView) view.findViewById(R.id.txtIdtransaksi_transaksi_kurir);
+        Tipesampah = (TextView) view.findViewById(R.id.txtTIpesampah_transaksi_kurir);
         Jumlahtransaksi = (TextView) view.findViewById(R.id.txtJumlah_transaksi_kurir);
         Tgltransaksi = (TextView) view.findViewById(R.id.txtTgl_transaksi_kurir);
         Namapengguna = (TextView) view.findViewById(R.id.txtNamapengguna_transaksi_kurir);
@@ -63,6 +64,7 @@ public class transaksikurirFragment extends Fragment {
 
     private void kosongkanInputan(){
         Idtransaksi.setText("Id Transaksi : ");
+        Tipesampah.setText("Tipe Sampah : ");
         Jumlahtransaksi.setText("Jumlah Transaksi : ");
         Tgltransaksi.setText("Tanggal Transaksi : ");
         Namapengguna.setText("Nama Pengguna : ");
@@ -88,6 +90,7 @@ public class transaksikurirFragment extends Fragment {
                     Teleponpengguna.setEnabled(true);
 
                     Idtransaksi.setText("Id Transaksi : " + datatransaksi.get(0).getId_transaksi());
+                    Tipesampah.setText("Tipe Sampah : " + datatransaksi.get(0).getTipe_sampah());
                     Jumlahtransaksi.setText("Jumlah Transaksi : " + datatransaksi.get(0).getJumlah_transaksi() + "Kg");
                     Tgltransaksi.setText("Tanggal Transaksi : " + datatransaksi.get(0).getTgl_transaksi());
                     Namapengguna.setText("Nama Pengguna : " + datatransaksi.get(0).getUsername_pengguna());
