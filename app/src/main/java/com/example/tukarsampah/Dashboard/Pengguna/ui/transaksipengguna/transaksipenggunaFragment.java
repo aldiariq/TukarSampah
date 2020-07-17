@@ -70,7 +70,7 @@ public class transaksipenggunaFragment extends Fragment {
                     banyaksampah = Banyaksampah.getText().toString().trim();
                     tipesampah = Tipesampah.getSelectedItem().toString();
                     idkurir = tempidkurir.get(Kurir.getSelectedItemPosition());
-                    if (idpengguna.equalsIgnoreCase("") || banyaksampah.equalsIgnoreCase("") || idkurir.equalsIgnoreCase("")){
+                    if (idpengguna.equalsIgnoreCase("") || banyaksampah.equalsIgnoreCase("") || idkurir.equalsIgnoreCase("") || banyaksampah.equalsIgnoreCase("0")){
                         Toast.makeText(getContext(), "Mohon Lengkapi Inputan", Toast.LENGTH_SHORT).show();
                     }else {
                         fungsiTransaksi(idpengguna, tipesampah, idkurir, banyaksampah, root);
