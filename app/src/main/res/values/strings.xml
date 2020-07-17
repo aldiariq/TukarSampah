@@ -5,9 +5,15 @@
         <item>KURIR</item>
         <item>ADMIN</item>
     </string-array>
+
     <string-array name="stringtipeakundaftar">
         <item>PENGGUNA</item>
         <item>KURIR</item>
+    </string-array>
+
+    <string-array name="stringtipesampah">
+        <item>ORGANIK</item>
+        <item>ANORGANIK</item>
     </string-array>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

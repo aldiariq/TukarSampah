@@ -44,7 +44,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class transaksipenggunaFragment extends Fragment {
     private EditText Banyaksampah;
-    private Spinner Kurir;
+    private Spinner Tipesampah, Kurir;
     private Button Transaksi;
     private List<String> tempidkurir = new ArrayList<String>();
     private List<String> tempusernamekurir = new ArrayList<String>();
@@ -65,14 +65,15 @@ public class transaksipenggunaFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (cekKoneksi()){
-                    String idpengguna, idkurir, banyaksampah;
+                    String idpengguna, tipesampah, idkurir, banyaksampah;
                     idpengguna = sharedPreferences.getString("ID_AKUN", "");
                     banyaksampah = Banyaksampah.getText().toString().trim();
+                    tipesampah = Tipesampah.getSelectedItem().toString();
                     idkurir = tempidkurir.get(Kurir.getSelectedItemPosition());
                     if (idpengguna.equalsIgnoreCase("") || banyaksampah.equalsIgnoreCase("") || idkurir.equalsIgnoreCase("")){
                         Toast.makeText(getContext(), "Mohon Lengkapi Inputan", Toast.LENGTH_SHORT).show();
                     }else {
-                        fungsiTransaksi(idpengguna, idkurir, banyaksampah, root);
+                        fungsiTransaksi(idpengguna, tipesampah, idkurir, banyaksampah, root);
                     }
                 }else {
                     Toast.makeText(getContext(), "Mohon Periksa Koneksi", Toast.LENGTH_SHORT).show();
@@ -84,6 +85,7 @@ public class transaksipenggunaFragment extends Fragment {
 
     private void initView(View root){
         Banyaksampah = (EditText) root.findViewById(R.id.etBanyaksampahtransaksipengguna);
+        Tipesampah = (Spinner) root.findViewById(R.id.spTipesampahtransaksipengguna);
         Kurir = (Spinner) root.findViewById(R.id.spKurirtransaksipengguna);
         Transaksi = (Button) root.findViewById(R.id.btnTransaksitransaksipengguna);
         Cardtransaksi = (CardView) root.findViewById(R.id.card_datatransaksi_pengguna);
@@ -99,6 +101,7 @@ public class transaksipenggunaFragment extends Fragment {
 
     private void kosongkanInputan(){
         Banyaksampah.setText("");
+        Tipesampah.setSelection(0);
         Kurir.setSelection(0);
         Idtransaksi.setText("Id Transaksi : ");
         Jumlahtransaksi.setText("Jumlah Transaksi : ");
@@ -146,9 +149,9 @@ public class transaksipenggunaFragment extends Fragment {
         });
     }
 
-    private void fungsiTransaksi(String idpengguna, String idkurir, String banyaksampah, View root){
+    private void fungsiTransaksi(String idpengguna, String tipesampah,  String idkurir, String banyaksampah, View root){
         Operasipengguna operasipengguna = Service.Koneksi().create(Operasipengguna.class);
-        Call<Responseoperasi> responsehapusakunpengguna = operasipengguna.Transaksi(idpengguna, idkurir, banyaksampah);
+        Call<Responseoperasi> responsehapusakunpengguna = operasipengguna.Transaksi(idpengguna, tipesampah, idkurir, banyaksampah);
         responsehapusakunpengguna.enqueue(new Callback<Responseoperasi>() {
             @Override
             public void onResponse(Call<Responseoperasi> call, Response<Responseoperasi> response) {
@@ -235,6 +238,7 @@ public class transaksipenggunaFragment extends Fragment {
                 if (datatransaksi.size() != 0){
                     Cardtransaksi.setVisibility(View.VISIBLE);
                     Banyaksampah.setVisibility(View.GONE);
+                    Tipesampah.setVisibility(View.GONE);
                     Kurir.setVisibility(View.GONE);
                     Transaksi.setVisibility(View.GONE);
 
@@ -277,6 +281,7 @@ public class transaksipenggunaFragment extends Fragment {
                 }else {
                     Cardtransaksi.setVisibility(View.GONE);
                     Banyaksampah.setVisibility(View.VISIBLE);
+                    Tipesampah.setVisibility(View.VISIBLE);
                     Kurir.setVisibility(View.VISIBLE);
                     Transaksi.setVisibility(View.VISIBLE);
                     setSpinner();
@@ -288,6 +293,7 @@ public class transaksipenggunaFragment extends Fragment {
             public void onFailure(Call<Responsegettransaksipengguna> call, Throwable t) {
                 Toast.makeText(getContext(), "MOHON PERIKSA KONEKSI", Toast.LENGTH_SHORT).show();
                 Banyaksampah.setVisibility(View.GONE);
+                Tipesampah.setVisibility(View.GONE);
                 Kurir.setVisibility(View.GONE);
                 Transaksi.setVisibility(View.GONE);
                 Cardtransaksi.setVisibility(View.GONE);

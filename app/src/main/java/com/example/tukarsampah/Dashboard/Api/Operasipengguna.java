@@ -33,6 +33,7 @@ public interface Operasipengguna {
     @POST("transaksi")
     Call<Responseoperasi> Transaksi(
             @Field("id_pengguna") String idpengguna,
+            @Field("tipe_sampah") String tipesampah,
             @Field("id_kurir") String idkurir,
             @Field("jumlah_transaksi") String jumlahtransaksi
     );
