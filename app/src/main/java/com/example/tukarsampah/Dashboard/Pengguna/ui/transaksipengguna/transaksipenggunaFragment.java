@@ -26,6 +26,7 @@ import com.example.tukarsampah.Api.Service;
 import com.example.tukarsampah.Dashboard.Api.Operasipengguna;
 import com.example.tukarsampah.Dashboard.Model.Kelolakuriradmin;
 import com.example.tukarsampah.Dashboard.Model.Responsegettransaksipengguna;
+import com.example.tukarsampah.Dashboard.Model.Responsenohpadmin;
 import com.example.tukarsampah.Dashboard.Model.Responseoperasi;
 import com.example.tukarsampah.Dashboard.Model.Responsetransaksigetkurirpengguna;
 import com.example.tukarsampah.Dashboard.Model.Transaksigettransaksipengguna;
@@ -54,6 +55,7 @@ public class transaksipenggunaFragment extends Fragment {
     private Button Bataltransaksi, Teleponkurir;
     private ConnectivityManager Koneksi;
     private ProgressDialog dialog;
+    private boolean Berlangganan;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -64,7 +66,7 @@ public class transaksipenggunaFragment extends Fragment {
         Transaksi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (cekKoneksi()){
+                if (cekKoneksi() && Berlangganan == true){
                     String idpengguna, tipesampah, idkurir, banyaksampah;
                     idpengguna = sharedPreferences.getString("ID_AKUN", "");
                     banyaksampah = Banyaksampah.getText().toString().trim();
@@ -76,7 +78,7 @@ public class transaksipenggunaFragment extends Fragment {
                         fungsiTransaksi(idpengguna, tipesampah, idkurir, banyaksampah, root);
                     }
                 }else {
-                    Toast.makeText(getContext(), "Mohon Periksa Koneksi", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Mohon Periksa Koneksi & Pastikan Anda Sudah Berlangganan", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -181,39 +183,36 @@ public class transaksipenggunaFragment extends Fragment {
             public void onResponse(Call<Responseoperasi> call, Response<Responseoperasi> response) {
                 if (response.body().getSTATUS().equalsIgnoreCase("BERHASIL")){
                     if (response.body().getKETERANGAN().equalsIgnoreCase("TIDAK")){
+                        Berlangganan = false;
                         Transaksi.setEnabled(false);
                         AlertDialog.Builder dialogPesan = new AlertDialog.Builder(root.getContext());
                         dialogPesan.setCancelable(true);
                         dialogPesan.setTitle("Anda Belum Berlangganan");
                         dialogPesan.setMessage("Silahkan Tekan Tombol Berlangganan!");
-                        dialogPesan.setPositiveButton("Berlangganan", new DialogInterface.OnClickListener() {
+                        dialogPesan.setPositiveButton("Hubungi Admin", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                if (cekKoneksi()){
-                                    Call<Responseoperasi> responsesetberlanggananpengguna = operasipengguna.setBerlanggananpengguna(idpengguna);
-                                    responsesetberlanggananpengguna.enqueue(new Callback<Responseoperasi>() {
-                                        @Override
-                                        public void onResponse(Call<Responseoperasi> call, Response<Responseoperasi> response) {
-                                            if (response.body().getSTATUS().equalsIgnoreCase("BERHASIL")){
-                                                Toast.makeText(root.getContext(), "BERHASIL BERLANGGANAN", Toast.LENGTH_SHORT).show();
-                                                Transaksi.setEnabled(true);
-                                            }else {
-                                                Toast.makeText(root.getContext(), response.message(), Toast.LENGTH_SHORT).show();
-                                            }
-                                        }
+                                Call<Responsenohpadmin> responsenohpadmin = operasipengguna.getNohpadmin();
+                                responsenohpadmin.enqueue(new Callback<Responsenohpadmin>() {
+                                    @Override
+                                    public void onResponse(Call<Responsenohpadmin> call, Response<Responsenohpadmin> response) {
+                                        Intent teleponkurir = new Intent(Intent.ACTION_CALL);
+                                        teleponkurir.setData(Uri.parse("tel:" + response.body().getNOHPADMIN()));
+                                        startActivity(teleponkurir);
+                                    }
 
-                                        @Override
-                                        public void onFailure(Call<Responseoperasi> call, Throwable t) {
+                                    @Override
+                                    public void onFailure(Call<Responsenohpadmin> call, Throwable t) {
+                                        Toast.makeText(root.getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
 
-                                        }
-                                    });
-                                }else {
-                                    Toast.makeText(root.getContext(), "Mohon Periksa Koneksi", Toast.LENGTH_SHORT).show();
-                                }
+
                             }
                         });
                         dialogPesan.show();
                     }else {
+                        Berlangganan = true;
                     }
                 }else {
                     Toast.makeText(root.getContext(), response.message(), Toast.LENGTH_SHORT).show();

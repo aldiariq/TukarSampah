@@ -1,6 +1,7 @@
 package com.example.tukarsampah.Dashboard.Api;
 
 import com.example.tukarsampah.Dashboard.Model.Responsegettransaksipengguna;
+import com.example.tukarsampah.Dashboard.Model.Responsenohpadmin;
 import com.example.tukarsampah.Dashboard.Model.Responseoperasi;
 import com.example.tukarsampah.Dashboard.Model.Responsetransaksigetkurirpengguna;
 import com.example.tukarsampah.Dashboard.Model.Responsetukarpointgetpointpengguna;
@@ -80,11 +81,10 @@ public interface Operasipengguna {
             @Field("id_pengguna") String idpengguna
     );
 
-    @FormUrlEncoded
-//    @Headers("Host: com.example.tukarsampah")
-    @POST("setberlanggananpengguna")
-    Call<Responseoperasi> setBerlanggananpengguna(
-            @Field("id_pengguna") String idpengguna
-    );
+    //    @Headers("Host: com.example.tukarsampah")
+    @GET("getnohpadmin")
+    Call<Responsenohpadmin> getNohpadmin();
+
+
 
 }
