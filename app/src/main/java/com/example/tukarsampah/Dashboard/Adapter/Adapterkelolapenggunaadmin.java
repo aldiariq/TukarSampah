@@ -31,6 +31,7 @@ public class Adapterkelolapenggunaadmin extends RecyclerView.Adapter<Adapterkelo
     private List<Kelolapenggunaadmin> listPengguna;
     private String IdUsername;
     private int IdUser;
+    private String Nohp;
     private ConnectivityManager Koneksi;
 
     public Adapterkelolapenggunaadmin(Context ctx, List<Kelolapenggunaadmin> listPengguna) {
@@ -51,6 +52,8 @@ public class Adapterkelolapenggunaadmin extends RecyclerView.Adapter<Adapterkelo
         Kelolapenggunaadmin kelolapenggunaadmin = listPengguna.get(position);
         holder.tvId.setText(kelolapenggunaadmin.getId_pengguna());
         holder.tvUsername.setText(kelolapenggunaadmin.getUsername_pengguna());
+        holder.tvNohp.setText(kelolapenggunaadmin.getNohp_pengguna());
+
     }
 
     @Override
@@ -59,51 +62,87 @@ public class Adapterkelolapenggunaadmin extends RecyclerView.Adapter<Adapterkelo
     }
 
     public class HolderData extends RecyclerView.ViewHolder {
-        TextView tvId, tvUsername;
+        TextView tvId, tvUsername, tvNohp;
 
         public HolderData(@NonNull View itemView) {
             super(itemView);
             tvId = (TextView) itemView.findViewById(R.id.tvidkelolapenggunaadmin);
             tvUsername = (TextView) itemView.findViewById(R.id.tvusernamekelolapenggunaadmin);
-
+            tvNohp = (TextView) itemView.findViewById(R.id.tvnohpkelolapenggunaadmin);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     IdUsername = tvUsername.getText().toString().trim();
                     IdUser = Integer.parseInt(tvId.getText().toString());
+                    Nohp = tvNohp.getText().toString().trim();
                     AlertDialog.Builder dialogPesan = new AlertDialog.Builder(itemView.getContext());
                     dialogPesan.setCancelable(true);
                     dialogPesan.setTitle("Pilih Operasi");
-                    dialogPesan.setPositiveButton("Hapus", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            if (cekKoneksi()){
-                                hapusPengguna();
-                            }else {
-                                Toast.makeText(itemView.getContext(), "Mohon Periksa Koneksi", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-                    dialogPesan.setNegativeButton("Reset Password", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            if (cekKoneksi()){
-                                resetpassPengguna();
-                            }else {
-                                Toast.makeText(itemView.getContext(), "Mohon Periksa Koneksi", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-                    dialogPesan.setNeutralButton("Verifikasi Langganan", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            if (cekKoneksi()){
-                                verifikasiLangganan();
-                            }else {
-                                Toast.makeText(itemView.getContext(), "Mohon Periksa Koneksi", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
+//                    dialogPesan.setPositiveButton("Hapus", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            if (cekKoneksi()){
+//                                hapusPengguna();
+//                            }else {
+//                                Toast.makeText(itemView.getContext(), "Mohon Periksa Koneksi", Toast.LENGTH_SHORT).show();
+//                            }
+//                        }
+//                    });
+//                    dialogPesan.setNegativeButton("Reset Password", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            if (cekKoneksi()){
+//                                resetpassPengguna();
+//                            }else {
+//                                Toast.makeText(itemView.getContext(), "Mohon Periksa Koneksi", Toast.LENGTH_SHORT).show();
+//                            }
+//                        }
+//                    });
+//                    dialogPesan.setNeutralButton("Verifikasi Langganan", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            if (cekKoneksi()){
+//                                verifikasiLangganan();
+//                            }else {
+//                                Toast.makeText(itemView.getContext(), "Mohon Periksa Koneksi", Toast.LENGTH_SHORT).show();
+//                            }
+//                        }
+//                    });
+                    dialogPesan.setItems(new CharSequence[]
+                                    {"Telpon Pengguna", "Verifikasi Langganan", "Reset Password", "Hapus"},
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    switch (which) {
+                                        case 0:
+                                            Toast.makeText(itemView.getContext(), Nohp, Toast.LENGTH_SHORT).show();
+//                                            Intent teleponkurir = new Intent(Intent.ACTION_CALL);
+//                                            teleponkurir.setData(Uri.parse("tel:" + Nohp));
+//                                            ctx.startActivity(teleponkurir);
+                                            break;
+                                        case 1:
+                                            if (cekKoneksi()){
+                                                verifikasiLangganan();
+                                            }else {
+                                                Toast.makeText(itemView.getContext(), "Mohon Periksa Koneksi", Toast.LENGTH_SHORT).show();
+                                            }
+                                            break;
+                                        case 2:
+                                            if (cekKoneksi()){
+                                                resetpassPengguna();
+                                            }else {
+                                                Toast.makeText(itemView.getContext(), "Mohon Periksa Koneksi", Toast.LENGTH_SHORT).show();
+                                            }
+                                            break;
+                                        case 3:
+                                            if (cekKoneksi()){
+                                                hapusPengguna();
+                                            }else {
+                                                Toast.makeText(itemView.getContext(), "Mohon Periksa Koneksi", Toast.LENGTH_SHORT).show();
+                                            }
+                                            break;
+                                    }
+                                }
+                            });
                     dialogPesan.show();
                 }
             });

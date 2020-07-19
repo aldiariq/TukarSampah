@@ -24,6 +24,12 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:text="Username Pengguna"/>
+        <TextView
+            android:id="@+id/tvnohpkelolapenggunaadmin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nohp Pengguna"
+            android:visibility="gone"/>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
