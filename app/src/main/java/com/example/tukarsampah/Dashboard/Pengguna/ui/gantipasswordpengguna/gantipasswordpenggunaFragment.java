@@ -35,7 +35,7 @@ public class gantipasswordpenggunaFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.gantipassword_fragment, container, false);
-        Btnsimpan = (Button) root.findViewById(R.id.btnsimpanubahpassword);
+        Btnsimpan = (Button) root.findViewById(R.id.btnsimpanubahubahnohp);
         Btnsimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

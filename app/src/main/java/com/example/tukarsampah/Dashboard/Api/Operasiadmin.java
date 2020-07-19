@@ -65,5 +65,12 @@ public interface Operasiadmin {
             @Field("tipeakun") String tipeakun
     );
 
+    @FormUrlEncoded
+    @POST("setnohpadmin")
+    @Headers("Accept: */*")
+    Call<Responseoperasi> ubahNohp(
+            @Field("nohp_admin") String nohp
+    );
+
 
 }

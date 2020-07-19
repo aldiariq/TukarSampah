@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -27,38 +27,31 @@ import static android.content.Context.MODE_PRIVATE;
 
 
 public class gantinohpadminFragment extends Fragment {
-    private TextView Passlama, Passbaru, Passbaru2;
+    private EditText Nohp;
     private Button Btnsimpan;
     private SharedPreferences sharedPreferences;
     private ConnectivityManager Koneksi;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.gantipassword_fragment, container, false);
-        Btnsimpan = (Button) root.findViewById(R.id.btnsimpanubahpassword);
+        View root = inflater.inflate(R.layout.gantinohp_fragment, container, false);
+        Btnsimpan = (Button) root.findViewById(R.id.btnsimpanubahubahnohp);
         Btnsimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (cekKoneksi()){
                     sharedPreferences = getActivity().getSharedPreferences("LOGIN", MODE_PRIVATE);
-                    Passlama = (TextView) root.findViewById(R.id.etpasswordlamagantipassword);
-                    Passbaru = (TextView) root.findViewById(R.id.etpasswordbarugantipassword);
-                    Passbaru2 = (TextView) root.findViewById(R.id.etpasswordbaru2gantipassword);
-                    String username, passlama, passbaru, passbaru2;
-                    username = sharedPreferences.getString("USERNAME", "");
-                    passlama = Passlama.getText().toString().trim();
-                    passbaru = Passbaru.getText().toString().trim();
-                    passbaru2 = Passbaru2.getText().toString().trim();
+                    Nohp = (EditText) root.findViewById(R.id.etnohpubahnohp);
+                    String nohp;
+                    nohp = Nohp.getText().toString().trim();
 
-                    if (passlama.equalsIgnoreCase("") || passbaru.equalsIgnoreCase("") || passbaru2.equalsIgnoreCase("")){
+                    if (nohp.equalsIgnoreCase("")){
                         Toast.makeText(getContext(), "Mohon Lengkapi Form", Toast.LENGTH_SHORT).show();
                     }else {
-                        ubahPassword(username, passlama, passbaru, root);
+                        ubahPassword(nohp, root);
                     }
 
-                    Passlama.setText("");
-                    Passbaru.setText("");
-                    Passbaru2.setText("");
+                    Nohp.setText("");
                 }else {
                     Toast.makeText(getContext(), "Mohon Periksa Koneksi", Toast.LENGTH_SHORT).show();
                 }
@@ -67,11 +60,11 @@ public class gantinohpadminFragment extends Fragment {
         return root;
     }
 
-    public void ubahPassword(String Username, String Passlama, String Passbaru, View itemView){
+    public void ubahPassword(String Nohp, View itemView){
         Operasiadmin operasiadmin = Service.Koneksi().create(Operasiadmin.class);
-        Call<Responseoperasi> ubahpassword = operasiadmin.ubahPassword(Username, Passlama, Passbaru, "ADMIN");
+        Call<Responseoperasi> ubahNohp = operasiadmin.ubahNohp(Nohp);
 
-        ubahpassword.enqueue(new Callback<Responseoperasi>() {
+        ubahNohp.enqueue(new Callback<Responseoperasi>() {
             @Override
             public void onResponse(Call<Responseoperasi> call, Response<Responseoperasi> response) {
                 if (response.body().getSTATUS().equalsIgnoreCase("BERHASIL")){
