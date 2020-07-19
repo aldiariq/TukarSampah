@@ -25,6 +25,10 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_gantipassword_admin" />
         <item
+            android:id="@+id/nav_gantinohp_admin"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/menu_gantinohp_admin" />
+        <item
             android:id="@+id/nav_logout_admin"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_logout_admin" />
