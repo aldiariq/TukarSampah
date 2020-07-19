@@ -72,5 +72,12 @@ public interface Operasiadmin {
             @Field("nohp_admin") String nohp
     );
 
+    @FormUrlEncoded
+//    @Headers("Host: com.example.tukarsampah")
+    @POST("setberlanggananpengguna")
+    Call<Responseoperasi> setBerlanggananpengguna(
+            @Field("id_pengguna") String idpengguna
+    );
+
 
 }

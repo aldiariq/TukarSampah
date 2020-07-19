@@ -92,6 +92,16 @@ public class Adapterkelolapenggunaadmin extends RecyclerView.Adapter<Adapterkelo
                             }
                         }
                     });
+                    dialogPesan.setNeutralButton("Verifikasi Langganan", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (cekKoneksi()){
+                                verifikasiLangganan();
+                            }else {
+                                Toast.makeText(itemView.getContext(), "Mohon Periksa Koneksi", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
                     dialogPesan.show();
                 }
             });
@@ -134,6 +144,26 @@ public class Adapterkelolapenggunaadmin extends RecyclerView.Adapter<Adapterkelo
             Operasiadmin operasiadmin = Service.Koneksi().create(Operasiadmin.class);
             Call<Responseoperasi> responseresetpasswordpengguna = operasiadmin.resetpassPengguna(IdUsername, "PENGGUNA");
             responseresetpasswordpengguna.enqueue(new Callback<Responseoperasi>() {
+                @Override
+                public void onResponse(Call<Responseoperasi> call, Response<Responseoperasi> response) {
+                    if (response.body().getSTATUS().equalsIgnoreCase("BERHASIL")){
+                        Toast.makeText(itemView.getContext(), response.body().getKETERANGAN(), Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(itemView.getContext(), response.body().getKETERANGAN(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Responseoperasi> call, Throwable t) {
+                    Toast.makeText(itemView.getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+        private void verifikasiLangganan(){
+            Operasiadmin operasiadmin = Service.Koneksi().create(Operasiadmin.class);
+            Call<Responseoperasi> responseverifikasilanggananpengguna = operasiadmin.setBerlanggananpengguna(IdUsername);
+            responseverifikasilanggananpengguna.enqueue(new Callback<Responseoperasi>() {
                 @Override
                 public void onResponse(Call<Responseoperasi> call, Response<Responseoperasi> response) {
                     if (response.body().getSTATUS().equalsIgnoreCase("BERHASIL")){
