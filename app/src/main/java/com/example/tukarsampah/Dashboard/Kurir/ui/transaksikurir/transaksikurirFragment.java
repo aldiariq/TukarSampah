@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +37,8 @@ import static android.content.Context.MODE_PRIVATE;
 public class transaksikurirFragment extends Fragment {
 
     private SharedPreferences sharedPreferences;
-    private TextView Idtransaksi, Tipesampah, Jumlahtransaksi, Tgltransaksi, Namapengguna, Alamatpengguna;
+    private TextView Idtransaksi, Tipesampah, Tgltransaksi, Namapengguna, Alamatpengguna;
+    private EditText Jumlahtransaksi;
     private Button Terimatransaksi, Teleponpengguna;
     private ConnectivityManager Koneksi;
     private ProgressDialog dialog;
@@ -53,7 +55,7 @@ public class transaksikurirFragment extends Fragment {
     private void initView(View view){
         Idtransaksi = (TextView) view.findViewById(R.id.txtIdtransaksi_transaksi_kurir);
         Tipesampah = (TextView) view.findViewById(R.id.txtTIpesampah_transaksi_kurir);
-        Jumlahtransaksi = (TextView) view.findViewById(R.id.txtJumlah_transaksi_kurir);
+        Jumlahtransaksi = (EditText) view.findViewById(R.id.txtJumlah_transaksi_kurir);
         Tgltransaksi = (TextView) view.findViewById(R.id.txtTgl_transaksi_kurir);
         Namapengguna = (TextView) view.findViewById(R.id.txtNamapengguna_transaksi_kurir);
         Alamatpengguna = (TextView) view.findViewById(R.id.txtAlamatpengguna_transaksi_kurir);
@@ -65,7 +67,7 @@ public class transaksikurirFragment extends Fragment {
     private void kosongkanInputan(){
         Idtransaksi.setText("Id Transaksi : ");
         Tipesampah.setText("Tipe Sampah : ");
-        Jumlahtransaksi.setText("Jumlah Transaksi : ");
+        Jumlahtransaksi.setText("");
         Tgltransaksi.setText("Tanggal Transaksi : ");
         Namapengguna.setText("Nama Pengguna : ");
         Alamatpengguna.setText("Alamat Pengguna : ");
@@ -91,7 +93,7 @@ public class transaksikurirFragment extends Fragment {
 
                     Idtransaksi.setText("Id Transaksi : " + datatransaksi.get(0).getId_transaksi());
                     Tipesampah.setText("Tipe Sampah : " + datatransaksi.get(0).getTipe_sampah());
-                    Jumlahtransaksi.setText("Jumlah Transaksi : " + datatransaksi.get(0).getJumlah_transaksi() + "Kg");
+                    Jumlahtransaksi.setText(datatransaksi.get(0).getJumlah_transaksi());
                     Tgltransaksi.setText("Tanggal Transaksi : " + datatransaksi.get(0).getTgl_transaksi());
                     Namapengguna.setText("Nama Pengguna : " + datatransaksi.get(0).getUsername_pengguna());
                     Alamatpengguna.setText("Alamat Pengguna : " + datatransaksi.get(0).getAlamat_pengguna());
@@ -101,11 +103,11 @@ public class transaksikurirFragment extends Fragment {
                         @Override
                         public void onClick(View v) {
                             dialog.show();
-                            if (cekKoneksi()){
+                            if (cekKoneksi() && !Jumlahtransaksi.getText().toString().trim().equalsIgnoreCase("")){
                                 String IDTRANSAKSI, IDPENGGUNA, JUMLAH_TRANSAKSI;
                                 IDTRANSAKSI = datatransaksi.get(0).getId_transaksi();
                                 IDPENGGUNA = datatransaksi.get(0).getId_pengguna();
-                                JUMLAH_TRANSAKSI = datatransaksi.get(0).getJumlah_transaksi();
+                                JUMLAH_TRANSAKSI = Jumlahtransaksi.getText().toString().trim();
                                 Operasikurir operasikurir2 = Service.Koneksi().create(Operasikurir.class);
                                 Call<Responseoperasi> responseterimatransaksi = operasikurir2.Terimatransaksi(IDTRANSAKSI, IDPENGGUNA, JUMLAH_TRANSAKSI);
                                 responseterimatransaksi.enqueue(new Callback<Responseoperasi>() {
@@ -119,12 +121,12 @@ public class transaksikurirFragment extends Fragment {
 
                                     @Override
                                     public void onFailure(Call<Responseoperasi> call, Throwable t) {
-                                        Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), "Mohon Periksa Koneksi & Form Inputan", Toast.LENGTH_SHORT).show();
                                         dialog.dismiss();
                                     }
                                 });
                             }else {
-                                Toast.makeText(getContext(), "Mohon Periksa Koneksi", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "Mohon Periksa Koneksi & Form Inputan", Toast.LENGTH_SHORT).show();
                                 dialog.dismiss();
                             }
                         }

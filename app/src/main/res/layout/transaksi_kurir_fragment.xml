@@ -62,15 +62,24 @@
                 android:inputType="text"
                 android:textSize="20sp"></TextView>
 
-            <TextView
-                android:id="@+id/txtJumlah_transaksi_kurir"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:ems="10"
-                android:hint="Jumlah Transaksi"
-                android:inputType="text"
-                android:textSize="20sp"></TextView>
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:text=" Jumlah Transaksi(Kg) "></TextView>
+                <EditText
+                    android:id="@+id/txtJumlah_transaksi_kurir"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:textSize="20sp"></EditText>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/txtTgl_transaksi_kurir"
