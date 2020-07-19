@@ -87,6 +87,4 @@ public interface Operasipengguna {
             @Field("id_pengguna") String idpengguna
     );
 
-
-
 }

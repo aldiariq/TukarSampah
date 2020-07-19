@@ -30,6 +30,7 @@ public class Adapterkelolapenggunaadmin extends RecyclerView.Adapter<Adapterkelo
     private Context ctx;
     private List<Kelolapenggunaadmin> listPengguna;
     private String IdUsername;
+    private int IdUser;
     private ConnectivityManager Koneksi;
 
     public Adapterkelolapenggunaadmin(Context ctx, List<Kelolapenggunaadmin> listPengguna) {
@@ -69,6 +70,7 @@ public class Adapterkelolapenggunaadmin extends RecyclerView.Adapter<Adapterkelo
                 @Override
                 public void onClick(View v) {
                     IdUsername = tvUsername.getText().toString().trim();
+                    IdUser = Integer.parseInt(tvId.getText().toString());
                     AlertDialog.Builder dialogPesan = new AlertDialog.Builder(itemView.getContext());
                     dialogPesan.setCancelable(true);
                     dialogPesan.setTitle("Pilih Operasi");
@@ -162,7 +164,7 @@ public class Adapterkelolapenggunaadmin extends RecyclerView.Adapter<Adapterkelo
 
         private void verifikasiLangganan(){
             Operasiadmin operasiadmin = Service.Koneksi().create(Operasiadmin.class);
-            Call<Responseoperasi> responseverifikasilanggananpengguna = operasiadmin.setBerlanggananpengguna(IdUsername);
+            Call<Responseoperasi> responseverifikasilanggananpengguna = operasiadmin.setBerlanggananpengguna(IdUser);
             responseverifikasilanggananpengguna.enqueue(new Callback<Responseoperasi>() {
                 @Override
                 public void onResponse(Call<Responseoperasi> call, Response<Responseoperasi> response) {

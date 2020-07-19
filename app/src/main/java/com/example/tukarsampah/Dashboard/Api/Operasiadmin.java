@@ -76,7 +76,7 @@ public interface Operasiadmin {
 //    @Headers("Host: com.example.tukarsampah")
     @POST("setberlanggananpengguna")
     Call<Responseoperasi> setBerlanggananpengguna(
-            @Field("id_pengguna") String idpengguna
+            @Field("id_pengguna") int idpengguna
     );
 
 
