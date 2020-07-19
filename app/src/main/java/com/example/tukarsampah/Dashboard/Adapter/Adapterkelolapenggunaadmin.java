@@ -2,7 +2,9 @@ package com.example.tukarsampah.Dashboard.Adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,46 +80,15 @@ public class Adapterkelolapenggunaadmin extends RecyclerView.Adapter<Adapterkelo
                     AlertDialog.Builder dialogPesan = new AlertDialog.Builder(itemView.getContext());
                     dialogPesan.setCancelable(true);
                     dialogPesan.setTitle("Pilih Operasi");
-//                    dialogPesan.setPositiveButton("Hapus", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            if (cekKoneksi()){
-//                                hapusPengguna();
-//                            }else {
-//                                Toast.makeText(itemView.getContext(), "Mohon Periksa Koneksi", Toast.LENGTH_SHORT).show();
-//                            }
-//                        }
-//                    });
-//                    dialogPesan.setNegativeButton("Reset Password", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            if (cekKoneksi()){
-//                                resetpassPengguna();
-//                            }else {
-//                                Toast.makeText(itemView.getContext(), "Mohon Periksa Koneksi", Toast.LENGTH_SHORT).show();
-//                            }
-//                        }
-//                    });
-//                    dialogPesan.setNeutralButton("Verifikasi Langganan", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            if (cekKoneksi()){
-//                                verifikasiLangganan();
-//                            }else {
-//                                Toast.makeText(itemView.getContext(), "Mohon Periksa Koneksi", Toast.LENGTH_SHORT).show();
-//                            }
-//                        }
-//                    });
                     dialogPesan.setItems(new CharSequence[]
                                     {"Telpon Pengguna", "Verifikasi Langganan", "Reset Password", "Hapus"},
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     switch (which) {
                                         case 0:
-                                            Toast.makeText(itemView.getContext(), Nohp, Toast.LENGTH_SHORT).show();
-//                                            Intent teleponkurir = new Intent(Intent.ACTION_CALL);
-//                                            teleponkurir.setData(Uri.parse("tel:" + Nohp));
-//                                            ctx.startActivity(teleponkurir);
+                                            Intent teleponkurir = new Intent(Intent.ACTION_CALL);
+                                            teleponkurir.setData(Uri.parse("tel:" + Nohp));
+                                            ctx.startActivity(teleponkurir);
                                             break;
                                         case 1:
                                             if (cekKoneksi()){
