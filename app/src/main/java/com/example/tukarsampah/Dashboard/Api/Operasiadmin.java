@@ -4,6 +4,7 @@ import com.example.tukarsampah.Dashboard.Model.Responsekelolakuriradmin;
 import com.example.tukarsampah.Dashboard.Model.Responsekelolapenggunaadmin;
 import com.example.tukarsampah.Dashboard.Model.Responsekelolarewardadmin;
 import com.example.tukarsampah.Dashboard.Model.Responseoperasi;
+import com.example.tukarsampah.Dashboard.Model.Responseprofiladmin;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -78,6 +79,14 @@ public interface Operasiadmin {
     Call<Responseoperasi> setBerlanggananpengguna(
             @Field("id_pengguna") int idpengguna
     );
+
+    @FormUrlEncoded
+//    @Headers("Host: com.example.tukarsampah")
+    @POST("getProfiladmin")
+    Call<Responseprofiladmin> getProfiladmin(
+            @Field("id_admin") String idadmin
+    );
+
 
 
 }

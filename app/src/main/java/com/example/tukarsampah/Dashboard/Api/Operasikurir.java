@@ -2,6 +2,7 @@ package com.example.tukarsampah.Dashboard.Api;
 
 import com.example.tukarsampah.Dashboard.Model.Responsegettransaksikurir;
 import com.example.tukarsampah.Dashboard.Model.Responseoperasi;
+import com.example.tukarsampah.Dashboard.Model.Responseprofilkurir;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -34,5 +35,12 @@ public interface Operasikurir {
             @Field("passwordlama") String passwordlama,
             @Field("passwordbaru") String passwordbaru,
             @Field("tipeakun") String tipeakun
+    );
+
+    @FormUrlEncoded
+//    @Headers("Host: com.example.tukarsampah")
+    @POST("getProfilkurir")
+    Call<Responseprofilkurir> getProfilkurir(
+            @Field("id_kurir") String idkurir
     );
 }

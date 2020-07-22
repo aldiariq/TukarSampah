@@ -15,9 +15,16 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.tukarsampah.Api.Service;
+import com.example.tukarsampah.Dashboard.Api.Operasiadmin;
+import com.example.tukarsampah.Dashboard.Model.Responseprofiladmin;
 import com.example.tukarsampah.MasukActivity;
 import com.example.tukarsampah.R;
 import com.google.android.material.navigation.NavigationView;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DashboardAdminActivity extends AppCompatActivity {
 
@@ -47,6 +54,7 @@ public class DashboardAdminActivity extends AppCompatActivity {
             fungsiLogout();
             return true;
         });
+        getProfiladmin();
     }
 
     @Override
@@ -74,5 +82,30 @@ public class DashboardAdminActivity extends AppCompatActivity {
         Toast.makeText(DashboardAdminActivity.this, "Berhasil Log Out", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(DashboardAdminActivity.this, MasukActivity.class));
         finish();
+    }
+
+    private void getProfiladmin(){
+        TextView Username, Nohp, Tipeakun;
+
+        Username = findViewById(R.id.txtusername_nav_admin);
+        Nohp = findViewById(R.id.txtnohp_nav_admin);
+        Tipeakun = findViewById(R.id.txttipe_nav_admin);
+
+        String id_admin = sharedPreferences.getString("ID_AKUN", "");
+        Operasiadmin operasiadmin = Service.Koneksi().create(Operasiadmin.class);
+        Call<Responseprofiladmin> profiladmin = operasiadmin.getProfiladmin(id_admin);
+        profiladmin.enqueue(new Callback<Responseprofiladmin>() {
+            @Override
+            public void onResponse(Call<Responseprofiladmin> call, Response<Responseprofiladmin> response) {
+                Username.setText("Username \t: " + response.body().getUsername_admin());
+                Nohp.setText("No HP \t: " + response.body().getNohp_admin());
+                Tipeakun.setText("Tipe Akun \t: " +response.body().getTipe_akun());
+            }
+
+            @Override
+            public void onFailure(Call<Responseprofiladmin> call, Throwable t) {
+                Toast.makeText(DashboardAdminActivity.this, "Mohon Periksa Koneksi", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

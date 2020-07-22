@@ -14,10 +14,16 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.tukarsampah.Dashboard.Pengguna.DashboardPenggunaActivity;
+import com.example.tukarsampah.Api.Service;
+import com.example.tukarsampah.Dashboard.Api.Operasikurir;
+import com.example.tukarsampah.Dashboard.Model.Responseprofilkurir;
 import com.example.tukarsampah.MasukActivity;
 import com.example.tukarsampah.R;
 import com.google.android.material.navigation.NavigationView;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DashboardKurirActivity extends AppCompatActivity {
 
@@ -47,6 +53,7 @@ public class DashboardKurirActivity extends AppCompatActivity {
             fungsiLogout();
             return true;
         });
+        getProfilkurir();
     }
 
     @Override
@@ -74,5 +81,31 @@ public class DashboardKurirActivity extends AppCompatActivity {
         Toast.makeText(DashboardKurirActivity.this, "Berhasil Log Out", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(DashboardKurirActivity.this, MasukActivity.class));
         finish();
+    }
+
+    private void getProfilkurir(){
+        TextView Username, Nohp, Tipeakun;
+
+        Username = findViewById(R.id.txtusername_nav_kurir);
+        Nohp = findViewById(R.id.txtnohp_nav_kurir);
+        Tipeakun = findViewById(R.id.txttipe_nav_kurir);
+
+        String id_kurir = sharedPreferences.getString("ID_AKUN", "");
+        Operasikurir operasikurir = Service.Koneksi().create(Operasikurir.class);
+        Call<Responseprofilkurir> profilkurir = operasikurir.getProfilkurir(id_kurir);
+        profilkurir.enqueue(new Callback<Responseprofilkurir>() {
+            @Override
+            public void onResponse(Call<Responseprofilkurir> call, Response<Responseprofilkurir> response) {
+                Username.setText("Username \t: " + response.body().getUsername_kurir());
+                Nohp.setText("No HP \t: " + response.body().getNohp_kurir());
+                Tipeakun.setText("Tipe Akun \t: " + response.body().getTipe_akun());
+            }
+
+            @Override
+            public void onFailure(Call<Responseprofilkurir> call, Throwable t) {
+                Toast.makeText(DashboardKurirActivity.this, "Mohon Periksa Koneksi", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 }
