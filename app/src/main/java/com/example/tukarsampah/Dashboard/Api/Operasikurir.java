@@ -39,7 +39,7 @@ public interface Operasikurir {
 
     @FormUrlEncoded
 //    @Headers("Host: com.example.tukarsampah")
-    @POST("getProfilkurir")
+    @POST("getprofilkurir")
     Call<Responseprofilkurir> getProfilkurir(
             @Field("id_kurir") String idkurir
     );

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,8 @@ public class DashboardAdminActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private TextView txtUsername, txtTipe;
+    private NavigationView mNavigationView;
+    private View hView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,28 +87,35 @@ public class DashboardAdminActivity extends AppCompatActivity {
         finish();
     }
 
-    private void getProfiladmin(){
-        TextView Username, Nohp, Tipeakun;
+    public void getProfiladmin(){
+        try{
+            sharedPreferences = getSharedPreferences("LOGIN", MODE_PRIVATE);
+            mNavigationView = (NavigationView) findViewById(R.id.nav_view);
+            View header = mNavigationView.getHeaderView(0);
+            TextView Username, Nohp, Tipeakun;
 
-        Username = findViewById(R.id.txtusername_nav_admin);
-        Nohp = findViewById(R.id.txtnohp_nav_admin);
-        Tipeakun = findViewById(R.id.txttipe_nav_admin);
+            Username = header.findViewById(R.id.txtusername_nav_admin);
+            Nohp = header.findViewById(R.id.txtnohp_nav_admin);
+            Tipeakun = header.findViewById(R.id.txttipe_nav_admin);
 
-        String id_admin = sharedPreferences.getString("ID_AKUN", "");
-        Operasiadmin operasiadmin = Service.Koneksi().create(Operasiadmin.class);
-        Call<Responseprofiladmin> profiladmin = operasiadmin.getProfiladmin(id_admin);
-        profiladmin.enqueue(new Callback<Responseprofiladmin>() {
-            @Override
-            public void onResponse(Call<Responseprofiladmin> call, Response<Responseprofiladmin> response) {
-                Username.setText("Username \t: " + response.body().getUsername_admin());
-                Nohp.setText("No HP \t: " + response.body().getNohp_admin());
-                Tipeakun.setText("Tipe Akun \t: " +response.body().getTipe_akun());
-            }
+            String id_admin = sharedPreferences.getString("ID_AKUN", "");
+            Operasiadmin operasiadmin = Service.Koneksi().create(Operasiadmin.class);
+            Call<Responseprofiladmin> profiladmin = operasiadmin.getProfiladmin(id_admin);
+            profiladmin.enqueue(new Callback<Responseprofiladmin>() {
+                @Override
+                public void onResponse(Call<Responseprofiladmin> call, Response<Responseprofiladmin> response) {
+                    Username.setText("Username \t: " + response.body().getUSERNAMEADMIN());
+                    Nohp.setText("No HP \t: " + response.body().getNOHPADMIN());
+                    Tipeakun.setText("Tipe Akun \t: " +response.body().getTIPEAKUN());
+                }
 
-            @Override
-            public void onFailure(Call<Responseprofiladmin> call, Throwable t) {
-                Toast.makeText(DashboardAdminActivity.this, "Mohon Periksa Koneksi", Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onFailure(Call<Responseprofiladmin> call, Throwable t) {
+                    Toast.makeText(DashboardAdminActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }catch (Exception e){
+
+        }
     }
 }

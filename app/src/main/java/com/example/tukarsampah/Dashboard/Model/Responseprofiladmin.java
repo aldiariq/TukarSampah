@@ -4,52 +4,59 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Responseprofiladmin {
-
-    @SerializedName("id_admin")
+    @SerializedName("STATUS")
     @Expose
-    private String id_admin;
-
-    @SerializedName("username_admin")
+    private String sTATUS;
+    @SerializedName("ID_ADMIN")
     @Expose
-    private String username_admin;
-
-    @SerializedName("nohp_admin")
+    private String iDADMIN;
+    @SerializedName("USERNAME_ADMIN")
     @Expose
-    private String nohp_admin;
-
-    @SerializedName("tipe_akun")
+    private String uSERNAMEADMIN;
+    @SerializedName("NOHP_ADMIN")
     @Expose
-    private String tipe_akun;
+    private String nOHPADMIN;
+    @SerializedName("TIPE_AKUN")
+    @Expose
+    private String tIPEAKUN;
 
-    public String getId_admin() {
-        return id_admin;
+    public String getSTATUS() {
+        return sTATUS;
     }
 
-    public void setId_admin(String id_admin) {
-        this.id_admin = id_admin;
+    public void setSTATUS(String sTATUS) {
+        this.sTATUS = sTATUS;
     }
 
-    public String getUsername_admin() {
-        return username_admin;
+    public String getIDADMIN() {
+        return iDADMIN;
     }
 
-    public void setUsername_admin(String username_admin) {
-        this.username_admin = username_admin;
+    public void setIDADMIN(String iDADMIN) {
+        this.iDADMIN = iDADMIN;
     }
 
-    public String getNohp_admin() {
-        return nohp_admin;
+    public String getUSERNAMEADMIN() {
+        return uSERNAMEADMIN;
     }
 
-    public void setNohp_admin(String nohp_admin) {
-        this.nohp_admin = nohp_admin;
+    public void setUSERNAMEADMIN(String uSERNAMEADMIN) {
+        this.uSERNAMEADMIN = uSERNAMEADMIN;
     }
 
-    public String getTipe_akun() {
-        return tipe_akun;
+    public String getNOHPADMIN() {
+        return nOHPADMIN;
     }
 
-    public void setTipe_akun(String tipe_akun) {
-        this.tipe_akun = tipe_akun;
+    public void setNOHPADMIN(String nOHPADMIN) {
+        this.nOHPADMIN = nOHPADMIN;
+    }
+
+    public String getTIPEAKUN() {
+        return tIPEAKUN;
+    }
+
+    public void setTIPEAKUN(String tIPEAKUN) {
+        this.tIPEAKUN = tIPEAKUN;
     }
 }

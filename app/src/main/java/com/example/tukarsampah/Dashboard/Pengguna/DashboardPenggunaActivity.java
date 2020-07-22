@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,8 @@ public class DashboardPenggunaActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private TextView txtUsername, txtTipe;
+    private NavigationView mNavigationView;
+    private View hView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,11 +88,14 @@ public class DashboardPenggunaActivity extends AppCompatActivity {
     }
 
     private void getProfilpengguna(){
+        sharedPreferences = getSharedPreferences("LOGIN", MODE_PRIVATE);
+        mNavigationView = (NavigationView) findViewById(R.id.nav_view);
+        View header = mNavigationView.getHeaderView(0);
         TextView Username, Nohp, Tipeakun;
 
-        Username = findViewById(R.id.txtusername_nav_pengguna);
-        Nohp = findViewById(R.id.txtnohp_nav_pengguna);
-        Tipeakun = findViewById(R.id.txttipe_nav_pengguna);
+        Username = header.findViewById(R.id.txtusername_nav_pengguna);
+        Nohp = header.findViewById(R.id.txtnohp_nav_pengguna);
+        Tipeakun = header.findViewById(R.id.txttipe_nav_pengguna);
 
         String id_pengguna = sharedPreferences.getString("ID_AKUN", "");
         Operasipengguna operasipengguna = Service.Koneksi().create(Operasipengguna.class);
@@ -97,9 +103,9 @@ public class DashboardPenggunaActivity extends AppCompatActivity {
         profilpengguna.enqueue(new Callback<Responseprofilpengguna>() {
             @Override
             public void onResponse(Call<Responseprofilpengguna> call, Response<Responseprofilpengguna> response) {
-                Username.setText("Username \t: " + response.body().getUsername_pengguna());
-                Nohp.setText("No HP \t: " + response.body().getNohp_pengguna());
-                Tipeakun.setText("Tipe Akun \t: " + response.body().getTipe_akun());
+                Username.setText("Username \t: " + response.body().getUSERNAMEPENGGUNA());
+                Nohp.setText("No HP \t: " + response.body().getNOHPPENGGUNA());
+                Tipeakun.setText("Tipe Akun \t: " + response.body().getTIPEAKUN());
             }
 
             @Override

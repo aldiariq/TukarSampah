@@ -82,7 +82,7 @@ public interface Operasiadmin {
 
     @FormUrlEncoded
 //    @Headers("Host: com.example.tukarsampah")
-    @POST("getProfiladmin")
+    @POST("getprofiladmin")
     Call<Responseprofiladmin> getProfiladmin(
             @Field("id_admin") String idadmin
     );

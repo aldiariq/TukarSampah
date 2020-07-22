@@ -88,7 +88,7 @@ public interface Operasipengguna {
 
     @FormUrlEncoded
 //    @Headers("Host: com.example.tukarsampah")
-    @POST("getProfilpengguna")
+    @POST("getprofilpengguna")
     Call<Responseprofilpengguna> getProfilpengguna(
             @Field("id_pengguna") String idpengguna
     );
