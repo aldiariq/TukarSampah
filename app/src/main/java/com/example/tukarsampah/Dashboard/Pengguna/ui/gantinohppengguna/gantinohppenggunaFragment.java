@@ -1,4 +1,4 @@
-package com.example.tukarsampah.Dashboard.Admin.ui.gantinohpadmin;
+package com.example.tukarsampah.Dashboard.Pengguna.ui.gantinohppengguna;
 
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.tukarsampah.Api.Service;
-import com.example.tukarsampah.Dashboard.Api.Operasiadmin;
+import com.example.tukarsampah.Dashboard.Api.Operasipengguna;
 import com.example.tukarsampah.Dashboard.Model.Responseoperasi;
 import com.example.tukarsampah.MasukActivity;
 import com.example.tukarsampah.R;
@@ -26,7 +26,7 @@ import retrofit2.Response;
 import static android.content.Context.MODE_PRIVATE;
 
 
-public class gantinohpadminFragment extends Fragment {
+public class gantinohppenggunaFragment extends Fragment {
     private EditText Nohp;
     private Button Btnsimpan;
     private SharedPreferences sharedPreferences;
@@ -61,8 +61,9 @@ public class gantinohpadminFragment extends Fragment {
     }
 
     public void ubahNohp(String Nohp, View itemView){
-        Operasiadmin operasiadmin = Service.Koneksi().create(Operasiadmin.class);
-        Call<Responseoperasi> ubahNohp = operasiadmin.ubahNohp(Nohp);
+        sharedPreferences = getActivity().getSharedPreferences("LOGIN", MODE_PRIVATE);
+        Operasipengguna operasipengguna = Service.Koneksi().create(Operasipengguna.class);
+        Call<Responseoperasi> ubahNohp = operasipengguna.ubahNohp(sharedPreferences.getString("ID_AKUN", ""), Nohp);
 
         ubahNohp.enqueue(new Callback<Responseoperasi>() {
             @Override

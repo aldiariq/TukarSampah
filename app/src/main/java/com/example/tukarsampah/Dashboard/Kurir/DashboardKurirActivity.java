@@ -46,7 +46,7 @@ public class DashboardKurirActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_transaksi_kurir, R.id.nav_gantipassword_kurir, R.id.nav_logout_kurir)
+                R.id.nav_home, R.id.nav_transaksi_kurir, R.id.nav_gantipassword_kurir, R.id.nav_gantinohp_kurir, R.id.nav_logout_kurir)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);

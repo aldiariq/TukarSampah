@@ -22,4 +22,9 @@
         android:name="com.example.tukarsampah.Dashboard.Kurir.ui.gantipasswordkurir.gantipasswordkurirFragment"
         android:label="@string/menu_gantipassword_kurir"
         tools:layout="@layout/gantipassword_fragment" />
+    <fragment
+        android:id="@+id/nav_gantinohp_kurir"
+        android:name="com.example.tukarsampah.Dashboard.Kurir.ui.gantinohpkurir.gantinohpkurirFragment"
+        android:label="@string/menu_gantinohp_admin"
+        tools:layout="@layout/gantinohp_fragment" />
 </navigation>

@@ -17,6 +17,10 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_gantipassword_kurir" />
         <item
+            android:id="@+id/nav_gantinohp_kurir"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/menu_gantinohp_kurir" />
+        <item
             android:id="@+id/nav_logout_kurir"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_logout_kurir" />

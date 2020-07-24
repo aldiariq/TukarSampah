@@ -7,6 +7,7 @@ import com.example.tukarsampah.Dashboard.Model.Responseprofilkurir;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public interface Operasikurir {
@@ -42,5 +43,13 @@ public interface Operasikurir {
     @POST("getprofilkurir")
     Call<Responseprofilkurir> getProfilkurir(
             @Field("id_kurir") String idkurir
+    );
+
+    @FormUrlEncoded
+    @POST("setnohpkurir")
+    @Headers("Accept: */*")
+    Call<Responseoperasi> ubahNohp(
+            @Field("id_kurir") String idkurir,
+            @Field("nohp_kurir") String nohp
     );
 }

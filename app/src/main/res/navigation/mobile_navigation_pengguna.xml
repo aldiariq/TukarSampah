@@ -28,4 +28,10 @@
         android:name="com.example.tukarsampah.Dashboard.Pengguna.ui.gantipasswordpengguna.gantipasswordpenggunaFragment"
         android:label="@string/menu_gantipassword_pengguna"
         tools:layout="@layout/gantipassword_fragment" />
+
+    <fragment
+        android:id="@+id/nav_gantinohp_pengguna"
+        android:name="com.example.tukarsampah.Dashboard.Pengguna.ui.gantinohppengguna.gantinohppenggunaFragment"
+        android:label="@string/menu_gantinohp_pengguna"
+        tools:layout="@layout/gantinohp_fragment" />
 </navigation>

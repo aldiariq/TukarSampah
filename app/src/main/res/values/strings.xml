@@ -41,10 +41,12 @@
     <string name="menu_transaksi_pengguna">Transaksi</string>
     <string name="menu_tukarpoint_pengguna">Tukar Point</string>
     <string name="menu_gantipassword_pengguna">Ganti Password</string>
+    <string name="menu_gantinohp_pengguna">Ganti No HP</string>
     <string name="menu_logout_pengguna">Log Out</string>
 
     <string name="title_activity_dashboard_kurir">Selamat Datang Kurir</string>
     <string name="menu_transaksi_kurir">Transaksi</string>
     <string name="menu_gantipassword_kurir">Ganti Password</string>
+    <string name="menu_gantinohp_kurir">Ganti No HP</string>
     <string name="menu_logout_kurir">Log Out</string>
 </resources>

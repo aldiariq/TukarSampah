@@ -21,6 +21,10 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_gantipassword_pengguna" />
         <item
+            android:id="@+id/nav_gantinohp_pengguna"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/menu_gantinohp_pengguna" />
+        <item
             android:id="@+id/nav_logout_pengguna"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_logout_admin" />
