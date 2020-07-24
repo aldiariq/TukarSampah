@@ -102,7 +102,7 @@ public class DashboardKurirActivity extends AppCompatActivity {
         profilkurir.enqueue(new Callback<Responseprofilkurir>() {
             @Override
             public void onResponse(Call<Responseprofilkurir> call, Response<Responseprofilkurir> response) {
-                Username.setText("Username \t: " + response.body().getUSERNAMEKURIR());
+                Username.setText("Nama \t: " + response.body().getUSERNAMEKURIR());
                 Nohp.setText("No HP \t: " + response.body().getNOHPKURIR());
                 Tipeakun.setText("Tipe Akun \t: " + response.body().getTIPEAKUN());
             }

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -45,7 +46,8 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class transaksipenggunaFragment extends Fragment {
     private EditText Banyaksampah;
-    private Spinner Tipesampah, Kurir;
+    private CheckBox Organik, Anorganik;
+    private Spinner Kurir;
     private Button Transaksi;
     private List<String> tempidkurir = new ArrayList<String>();
     private List<String> tempusernamekurir = new ArrayList<String>();
@@ -70,9 +72,18 @@ public class transaksipenggunaFragment extends Fragment {
                     String idpengguna, tipesampah, idkurir, banyaksampah;
                     idpengguna = sharedPreferences.getString("ID_AKUN", "");
                     banyaksampah = Banyaksampah.getText().toString().trim();
-                    tipesampah = Tipesampah.getSelectedItem().toString();
+                    tipesampah = "";
+
+                    if (Organik.isChecked() && Anorganik.isChecked()){
+                        tipesampah += "ORGANIK & ANORGANIK";
+                    }else if (Organik.isChecked()){
+                        tipesampah += "ORGANIK";
+                    }else if (Anorganik.isChecked()){
+                        tipesampah += "ANORGANIK";
+                    }
+
                     idkurir = tempidkurir.get(Kurir.getSelectedItemPosition());
-                    if (idpengguna.equalsIgnoreCase("") || banyaksampah.equalsIgnoreCase("") || idkurir.equalsIgnoreCase("") || banyaksampah.equalsIgnoreCase("0")){
+                    if (idpengguna.equalsIgnoreCase("") || banyaksampah.equalsIgnoreCase("") || idkurir.equalsIgnoreCase("") || banyaksampah.equalsIgnoreCase("0") || tipesampah.equalsIgnoreCase("")){
                         Toast.makeText(getContext(), "Mohon Lengkapi Inputan", Toast.LENGTH_SHORT).show();
                     }else {
                         fungsiTransaksi(idpengguna, tipesampah, idkurir, banyaksampah, root);
@@ -87,7 +98,8 @@ public class transaksipenggunaFragment extends Fragment {
 
     private void initView(View root){
         Banyaksampah = (EditText) root.findViewById(R.id.etBanyaksampahtransaksipengguna);
-        Tipesampah = (Spinner) root.findViewById(R.id.spTipesampahtransaksipengguna);
+        Organik = (CheckBox) root.findViewById(R.id.checkBoxOrganiktransaksipengguna);
+        Anorganik = (CheckBox) root.findViewById(R.id.checkBoxAnorganiktransaksipengguna);
         Kurir = (Spinner) root.findViewById(R.id.spKurirtransaksipengguna);
         Transaksi = (Button) root.findViewById(R.id.btnTransaksitransaksipengguna);
         Cardtransaksi = (CardView) root.findViewById(R.id.card_datatransaksi_pengguna);
@@ -104,7 +116,8 @@ public class transaksipenggunaFragment extends Fragment {
 
     private void kosongkanInputan(){
         Banyaksampah.setText("");
-        Tipesampah.setSelection(0);
+        Organik.setChecked(false);
+        Anorganik.setChecked(false);
         Kurir.setSelection(0);
         Idtransaksi.setText("Id Transaksi : ");
         Tpsampah.setText("Tipe Sampah : ");
@@ -239,7 +252,8 @@ public class transaksipenggunaFragment extends Fragment {
                 if (datatransaksi.size() != 0){
                     Cardtransaksi.setVisibility(View.VISIBLE);
                     Banyaksampah.setVisibility(View.GONE);
-                    Tipesampah.setVisibility(View.GONE);
+                    Organik.setVisibility(View.GONE);
+                    Anorganik.setVisibility(View.GONE);
                     Kurir.setVisibility(View.GONE);
                     Transaksi.setVisibility(View.GONE);
 
@@ -283,7 +297,8 @@ public class transaksipenggunaFragment extends Fragment {
                 }else {
                     Cardtransaksi.setVisibility(View.GONE);
                     Banyaksampah.setVisibility(View.VISIBLE);
-                    Tipesampah.setVisibility(View.VISIBLE);
+                    Organik.setVisibility(View.VISIBLE);
+                    Anorganik.setVisibility(View.VISIBLE);
                     Kurir.setVisibility(View.VISIBLE);
                     Transaksi.setVisibility(View.VISIBLE);
                     setSpinner();
@@ -295,7 +310,8 @@ public class transaksipenggunaFragment extends Fragment {
             public void onFailure(Call<Responsegettransaksipengguna> call, Throwable t) {
                 Toast.makeText(getContext(), "MOHON PERIKSA KONEKSI", Toast.LENGTH_SHORT).show();
                 Banyaksampah.setVisibility(View.GONE);
-                Tipesampah.setVisibility(View.GONE);
+                Organik.setVisibility(View.GONE);
+                Anorganik.setVisibility(View.GONE);
                 Kurir.setVisibility(View.GONE);
                 Transaksi.setVisibility(View.GONE);
                 Cardtransaksi.setVisibility(View.GONE);

@@ -32,9 +32,7 @@ public class DashboardPenggunaActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
-    private TextView txtUsername, txtTipe;
     private NavigationView mNavigationView;
-    private View hView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,9 +89,9 @@ public class DashboardPenggunaActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("LOGIN", MODE_PRIVATE);
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
         View header = mNavigationView.getHeaderView(0);
-        TextView Username, Nohp, Tipeakun;
+        TextView Nama, Nohp, Tipeakun;
 
-        Username = header.findViewById(R.id.txtusername_nav_pengguna);
+        Nama = header.findViewById(R.id.txtusername_nav_pengguna);
         Nohp = header.findViewById(R.id.txtnohp_nav_pengguna);
         Tipeakun = header.findViewById(R.id.txttipe_nav_pengguna);
 
@@ -103,7 +101,7 @@ public class DashboardPenggunaActivity extends AppCompatActivity {
         profilpengguna.enqueue(new Callback<Responseprofilpengguna>() {
             @Override
             public void onResponse(Call<Responseprofilpengguna> call, Response<Responseprofilpengguna> response) {
-                Username.setText("Username \t: " + response.body().getUSERNAMEPENGGUNA());
+                Nama.setText("Nama \t: " + response.body().getUSERNAMEPENGGUNA());
                 Nohp.setText("No HP \t: " + response.body().getNOHPPENGGUNA());
                 Tipeakun.setText("Tipe Akun \t: " + response.body().getTIPEAKUN());
             }
@@ -113,7 +111,5 @@ public class DashboardPenggunaActivity extends AppCompatActivity {
                 Toast.makeText(DashboardPenggunaActivity.this, "Mohon Periksa Koneksi", Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
 }

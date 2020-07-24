@@ -29,7 +29,7 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="title_activity_dashboard_admin">DashboardAdminActivity</string>
+    <string name="title_activity_dashboard_admin">Selamat Datang Admin</string>
     <string name="menu_kelolapengguna_admin">Kelola Pengguna</string>
     <string name="menu_kelolakurir_admin">Kelola Kurir</string>
     <string name="menu_kelolareward_admin">Kelola Reward</string>
@@ -37,13 +37,13 @@
     <string name="menu_gantinohp_admin">Ganti No HP</string>
     <string name="menu_logout_admin">Log Out</string>
 
-    <string name="title_activity_dashboard_pengguna">DashboardPenggunaActivity</string>
+    <string name="title_activity_dashboard_pengguna">Selamat Datang Pengguna</string>
     <string name="menu_transaksi_pengguna">Transaksi</string>
     <string name="menu_tukarpoint_pengguna">Tukar Point</string>
     <string name="menu_gantipassword_pengguna">Ganti Password</string>
     <string name="menu_logout_pengguna">Log Out</string>
 
-    <string name="title_activity_dashboard_kurir">DashboardKurirActivity</string>
+    <string name="title_activity_dashboard_kurir">Selamat Datang Kurir</string>
     <string name="menu_transaksi_kurir">Transaksi</string>
     <string name="menu_gantipassword_kurir">Ganti Password</string>
     <string name="menu_logout_kurir">Log Out</string>

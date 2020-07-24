@@ -104,7 +104,7 @@ public class DashboardAdminActivity extends AppCompatActivity {
             profiladmin.enqueue(new Callback<Responseprofiladmin>() {
                 @Override
                 public void onResponse(Call<Responseprofiladmin> call, Response<Responseprofiladmin> response) {
-                    Username.setText("Username \t: " + response.body().getUSERNAMEADMIN());
+                    Username.setText("Nama \t: " + response.body().getUSERNAMEADMIN());
                     Nohp.setText("No HP \t: " + response.body().getNOHPADMIN());
                     Tipeakun.setText("Tipe Akun \t: " +response.body().getTIPEAKUN());
                 }
